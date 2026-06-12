@@ -1,3 +1,4 @@
+import { REPO_BLOCKLIST } from '@/lib/constants';
 import type { GitHubRepo } from '@/types';
 
 const GITHUB_USER = 'abinu2';
@@ -47,7 +48,7 @@ export async function fetchTopRepos(): Promise<GitHubRepo[]> {
   const raw = (await res.json()) as RawGitHubRepo[];
 
   return raw
-    .filter((repo) => !repo.fork)
+    .filter((repo) => !repo.fork && !REPO_BLOCKLIST.includes(repo.name))
     .sort((a, b) => {
       if (b.stargazers_count !== a.stargazers_count) {
         return b.stargazers_count - a.stargazers_count;

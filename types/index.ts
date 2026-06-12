@@ -13,7 +13,14 @@ export interface ExperienceItem {
 }
 
 /** Which animated schematic the project explorer draws for a project. */
-export type ProjectVisualKind = 'contracts' | 'anomaly' | 'protocol' | 'bubbles' | 'network';
+export type ProjectVisualKind =
+  | 'contracts'
+  | 'anomaly'
+  | 'protocol'
+  | 'bubbles'
+  | 'network'
+  | 'moderation'
+  | 'orbit';
 
 /** A hardcoded, hand-curated project shown in the interactive explorer. */
 export interface FeaturedProject {
@@ -33,6 +40,17 @@ export interface FeaturedProject {
 export interface AboutFact {
   label: string;
   value: string;
+}
+
+/** A photo pinned into the DOSSIER evidence strip. */
+export interface AboutPhoto {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+  /** Render at reduced size (e.g. group shots). */
+  small?: boolean;
 }
 
 /** Shape of a repository returned by /api/github (subset of the GitHub REST API). */

@@ -228,7 +228,128 @@ function NetworkVisual({ animate }: VisualProps) {
         {animate && <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.6;1" dur="2s" repeatCount="indefinite" />}
       </circle>
       <text x={20} y={245} className="fill-ink font-mono" fontSize="11">
-        iptables -A FORWARD -s attacker -j DROP ✓
+        pfSense: block attacker → DROP ✓ · vlan_segmented · wireguard_up
+      </text>
+    </svg>
+  );
+}
+
+/* ---------------- moderation: RallyPoint AI toxicity gate ----------- */
+
+function ModerationVisual({ animate }: VisualProps) {
+  const tiers = [
+    { x: 130, label: 'T1', cls: 'fill-term' },
+    { x: 180, label: 'T2', cls: 'fill-acid' },
+    { x: 230, label: 'T3', cls: 'fill-cyber' },
+    { x: 280, label: 'T4', cls: 'fill-danger' },
+  ];
+  return (
+    <svg viewBox="0 0 400 260" className={frame} aria-hidden="true">
+      {/* Incoming post */}
+      <rect x={16} y={100} width={84} height={50} className="fill-paper stroke-ink" strokeWidth="3" />
+      <text x={58} y={122} textAnchor="middle" className="fill-ink font-mono" fontSize="10" fontWeight="bold">
+        new post
+      </text>
+      <text x={58} y={138} textAnchor="middle" className="fill-ink/70 font-mono" fontSize="9">
+        user_4821
+      </text>
+
+      {/* Claude moderation pipeline */}
+      <rect x={118} y={75} width={212} height={100} fill="none" className="stroke-ink" strokeWidth="3" strokeDasharray="7 5" />
+      <text x={224} y={66} textAnchor="middle" className="fill-ink font-mono" fontSize="10" fontWeight="bold">
+        claude moderation — 4-tier toxicity
+      </text>
+      {tiers.map((t) => (
+        <g key={t.label}>
+          <rect x={t.x} y={100} width={36} height={50} className={`${t.cls} stroke-ink`} strokeWidth="2.5" />
+          <text x={t.x + 18} y={130} textAnchor="middle" className="fill-ink font-mono" fontSize="11" fontWeight="bold">
+            {t.label}
+          </text>
+        </g>
+      ))}
+
+      {/* Outcomes */}
+      <rect x={345} y={62} width={44} height={40} className="fill-term stroke-ink" strokeWidth="2.5" />
+      <text x={367} y={86} textAnchor="middle" className="fill-ink font-mono" fontSize="9" fontWeight="bold">
+        feed
+      </text>
+      <rect x={345} y={150} width={44} height={40} className="fill-danger stroke-ink" strokeWidth="2.5" />
+      <text x={367} y={174} textAnchor="middle" className="fill-ink font-mono" fontSize="9" fontWeight="bold">
+        queue
+      </text>
+
+      {/* Animated post packet through the pipeline → feed */}
+      <circle r="6" cx={58} cy={125} className="fill-violet stroke-ink" strokeWidth="2">
+        {animate && (
+          <animate attributeName="cx" values="58;224;224;367" keyTimes="0;0.45;0.6;1" dur="3.2s" repeatCount="indefinite" />
+        )}
+        {animate && (
+          <animate attributeName="cy" values="125;125;125;82" keyTimes="0;0.45;0.6;1" dur="3.2s" repeatCount="indefinite" />
+        )}
+      </circle>
+
+      <text x={20} y={225} className="fill-ink font-mono" fontSize="11">
+        score: {'{'}toxicity: 0.04{'}'} → approved · rate_limit: ok · rbac: member
+      </text>
+      <rect x={20} y={235} width={140} height={3} className="fill-violet" />
+    </svg>
+  );
+}
+
+/* ---------------- orbit: Launchpad 5 tools around the BI graph ------ */
+
+function OrbitVisual({ animate }: VisualProps) {
+  const tools = [
+    { x: 200, y: 38, label: 'quote2cash', cls: 'fill-acid' },
+    { x: 340, y: 100, label: 'receipts', cls: 'fill-shock' },
+    { x: 300, y: 205, label: 'contracts', cls: 'fill-cyber' },
+    { x: 100, y: 205, label: 'compliance', cls: 'fill-violet' },
+    { x: 60, y: 100, label: 'growth', cls: 'fill-term' },
+  ];
+  return (
+    <svg viewBox="0 0 400 260" className={frame} aria-hidden="true">
+      {/* Spokes */}
+      {tools.map((t) => (
+        <line key={t.label} x1={200} y1={125} x2={t.x} y2={t.y} className="stroke-ink" strokeWidth="2.5" strokeDasharray="6 5">
+          {animate && <animate attributeName="stroke-dashoffset" values="22;0" dur="1.4s" repeatCount="indefinite" />}
+        </line>
+      ))}
+
+      {/* Central BI graph hub */}
+      <rect x={148} y={98} width={104} height={54} className="fill-ink stroke-ink" strokeWidth="3" />
+      <text x={200} y={120} textAnchor="middle" className="fill-acid font-mono" fontSize="10" fontWeight="bold">
+        firestore
+      </text>
+      <text x={200} y={136} textAnchor="middle" className="fill-term font-mono" fontSize="9">
+        bi_graph
+      </text>
+
+      {/* Tool nodes */}
+      {tools.map((t) => (
+        <g key={t.label}>
+          <rect x={t.x - 42} y={t.y - 16} width={84} height={32} className={`${t.cls} stroke-ink`} strokeWidth="2.5" />
+          <text x={t.x} y={t.y + 4} textAnchor="middle" className="fill-ink font-mono" fontSize="9" fontWeight="bold">
+            {t.label}
+          </text>
+        </g>
+      ))}
+
+      {/* LLM packets orbiting hub → tools */}
+      <circle r="5" className="fill-paper stroke-ink" strokeWidth="1.5">
+        {animate && <animate attributeName="cx" values="200;200;200" keyTimes="0;0.5;1" dur="2.6s" repeatCount="indefinite" />}
+        {animate && <animate attributeName="cy" values="125;38;125" keyTimes="0;0.5;1" dur="2.6s" repeatCount="indefinite" />}
+      </circle>
+      <circle r="5" className="fill-paper stroke-ink" strokeWidth="1.5">
+        {animate && <animate attributeName="cx" values="200;340;200" keyTimes="0;0.5;1" dur="3.4s" repeatCount="indefinite" />}
+        {animate && <animate attributeName="cy" values="125;100;125" keyTimes="0;0.5;1" dur="3.4s" repeatCount="indefinite" />}
+      </circle>
+      <circle r="5" className="fill-paper stroke-ink" strokeWidth="1.5">
+        {animate && <animate attributeName="cx" values="200;100;200" keyTimes="0;0.5;1" dur="3s" repeatCount="indefinite" />}
+        {animate && <animate attributeName="cy" values="125;205;125" keyTimes="0;0.5;1" dur="3s" repeatCount="indefinite" />}
+      </circle>
+
+      <text x={20} y={245} className="fill-ink font-mono" fontSize="11">
+        vertex_ai + gemini pipelines · 2× hackathon track winner ★
       </text>
     </svg>
   );
@@ -242,6 +363,8 @@ const VISUALS: Record<ProjectVisualKind, (p: VisualProps) => JSX.Element> = {
   protocol: ProtocolVisual,
   bubbles: BubblesVisual,
   network: NetworkVisual,
+  moderation: ModerationVisual,
+  orbit: OrbitVisual,
 };
 
 export default function ProjectVisual({ kind }: { kind: ProjectVisualKind }) {

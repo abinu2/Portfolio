@@ -1,18 +1,17 @@
-import dynamic from 'next/dynamic';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/sections/Hero';
+import About from '@/components/sections/About';
+import Experience from '@/components/sections/Experience';
+import Projects from '@/components/sections/Projects';
+import Skills from '@/components/sections/Skills';
+import Contact from '@/components/sections/Contact';
 
 /*
- * Everything below the fold is code-split with next/dynamic so the cover
- * paints first and the rest of the zine streams in.
+ * Sections are statically imported (no next/dynamic): the page is light,
+ * and lazy sections were shifting layout after anchor jumps, making
+ * #section links land short. Static imports keep anchors exact.
  */
-const About = dynamic(() => import('@/components/sections/About'));
-const Experience = dynamic(() => import('@/components/sections/Experience'));
-const Projects = dynamic(() => import('@/components/sections/Projects'));
-const Skills = dynamic(() => import('@/components/sections/Skills'));
-const Contact = dynamic(() => import('@/components/sections/Contact'));
-
 export default function Home() {
   return (
     <>

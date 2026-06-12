@@ -132,6 +132,42 @@ export default function About() {
               </div>
             </FadeInSection>
           </div>
+
+          {/* Evidence strip — photos pinned into the file */}
+          <FadeInSection>
+            <div className="mt-20">
+              <p className="mb-6 font-mono text-xs font-bold uppercase tracking-widest text-ink-muted">
+                [attached] // field_evidence — {ABOUT.photos.length} items
+              </p>
+              <div className="flex flex-wrap items-end justify-center gap-10 md:justify-start">
+                {ABOUT.photos.map((photo, i) => (
+                  <figure
+                    key={photo.src}
+                    className={`relative border-3 border-ink bg-paper p-2 pb-10 shadow-brutal transition-all duration-base ease-standard hover:rotate-0 hover:-translate-y-1 hover:shadow-brutal-lg ${
+                      i % 2 === 0 ? '-rotate-2' : 'rotate-2'
+                    } ${photo.small ? 'w-48 md:w-56' : 'w-56 md:w-72'}`}
+                  >
+                    <span
+                      className={`absolute -top-3 left-1/2 z-10 h-6 w-20 -translate-x-1/2 border-2 border-ink/30 bg-acid/80 ${
+                        i % 2 === 0 ? 'rotate-3' : '-rotate-3'
+                      }`}
+                      aria-hidden="true"
+                    />
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      width={photo.width}
+                      height={photo.height}
+                      className="h-auto w-full border-2 border-ink object-cover"
+                    />
+                    <figcaption className="absolute bottom-2 left-0 w-full text-center font-mono text-xs font-bold uppercase tracking-widest text-ink">
+                      {photo.caption}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          </FadeInSection>
         </div>
       </section>
     </>

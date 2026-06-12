@@ -34,7 +34,7 @@ const COMMANDS: Record<string, string[]> = {
     '>   clear       — wipe the screen',
   ],
   whoami: ['> allan_binu — cs @ asu', '> security researcher · blockchain dev', '> blockchain dev @ kimuntux · hacker devils vp'],
-  skills: ['> solidity | python | typescript', '> hardhat | react | next.js | fastapi', '> wireshark | iptables | scikit-learn'],
+  skills: ['> typescript | python | solidity | go', '> next.js | prisma | postgres | redis', '> wireshark | pfsense | scikit-learn'],
   projects: ['> opening case files…'],
   contact: ['> opening transmission channel…'],
   'sudo hire_me': ['> [sudo] password for recruiter: ********', '> ACCESS GRANTED ✓', '> routing to contact form…'],

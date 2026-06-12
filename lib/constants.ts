@@ -1,5 +1,6 @@
 import type {
   AboutFact,
+  AboutPhoto,
   ExperienceItem,
   FeaturedProject,
   NavLink,
@@ -14,12 +15,12 @@ import type {
 export const SITE = {
   name: 'Allan Binu',
   wordmark: '> allan_binu',
-  email: 'abinu4@asu.edu',
+  email: 'allanbinu197@gmail.com',
   github: 'https://github.com/abinu2',
   linkedin: 'https://www.linkedin.com/in/allan-binu',
   resume: '/resume.pdf',
   tagline: 'Software Engineer · Blockchain Developer · Security Researcher',
-  bio: 'I build resilient systems at the intersection of security, AI, and decentralized infrastructure. Currently studying Computer Science at Arizona State University with a focus on network forensics, smart contract engineering, and machine learning pipelines.',
+  bio: 'I build resilient systems at the intersection of security, AI, and decentralized infrastructure. B.S. in Computer Science (Cybersecurity concentration) from Arizona State University, now shipping production blockchain infrastructure at Kimuntu Power — with an M.S. in Robotics & Autonomous Systems up next.',
 } as const;
 
 export const NAV_LINKS: NavLink[] = [
@@ -37,33 +38,6 @@ export const SOCIAL_LINKS: SocialLink[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* DOSSIER — the human behind the terminal                             */
-/* ------------------------------------------------------------------ */
-
-export const ABOUT = {
-  headshot: '/headshot.jpg',
-  greeting: "Hey — I'm Allan.",
-  paragraphs: [
-    "I'm a computer science student at Arizona State who got hooked the first time I watched my own network traffic stream through Wireshark — and never stopped looking. Since then I've deployed production Solidity contracts that move real value on-chain, engineered machine-learning pipelines that flag intrusions in live packet captures, and led ASU's Hacker Devils security club through competitive CTF seasons as Vice President.",
-    'The common thread: I build systems that have to earn trust. Contracts that cannot revert, networks that cannot leak, models that cannot miss. If the problem is adversarial, I want to work on it.',
-    "Outside of coursework I compete in CTFs, study real-world exploit post-mortems, and prototype with agentic AI — the same curiosity, pointed at whatever comes next.",
-  ],
-  facts: [
-    { label: 'base', value: 'Tempe, AZ' },
-    { label: 'education', value: 'Arizona State University — B.S. Computer Science' },
-    { label: 'current_roles', value: 'Blockchain Developer @ KimuntuX · Hacker Devils VP' },
-    { label: 'core_stack', value: 'Solidity · Python · TypeScript · Linux' },
-    { label: 'focus_areas', value: 'Smart contract security · Network forensics · ML pipelines' },
-    { label: 'off_hours', value: 'CTF competitions · exploit research · agentic AI' },
-  ] satisfies AboutFact[],
-  currently: [
-    'Shipping the production blockchain layer at KimuntuX Smart Fintech Hub',
-    'Leading CTF preparation with Hacker Devils',
-    'Prototyping agentic AI workflows',
-  ],
-} as const;
-
-/* ------------------------------------------------------------------ */
 /* Hero terminal                                                       */
 /* ------------------------------------------------------------------ */
 
@@ -72,13 +46,64 @@ export const TERMINAL_LINES: string[] = [
   '> allan_binu',
   '',
   '$ cat skills.txt',
-  '> solidity | python | javascript',
-  '> hardhat | react | next.js',
-  '> linux | networking | ml',
+  '> typescript | python | solidity',
+  '> next.js | prisma | postgres',
+  '> linux | wireshark | ml',
   '',
   '$ status',
   '> open to opportunities',
 ];
+
+/* ------------------------------------------------------------------ */
+/* DOSSIER — the human behind the terminal                             */
+/* ------------------------------------------------------------------ */
+
+export const ABOUT = {
+  headshot: '/headshot.jpg',
+  greeting: "Hey — I'm Allan.",
+  paragraphs: [
+    "I'm a computer science graduate (Cybersecurity concentration) from Arizona State who got hooked the first time I watched my own network traffic stream through Wireshark — and never stopped looking. Since then I've shipped a production full-stack platform solo, deployed Solidity contracts that move real value on-chain, and led ASU's Hacker Devils security club through competitive CTF seasons as Vice President.",
+    'The common thread: I build systems that have to earn trust. Contracts that cannot revert, networks that cannot leak, pipelines that cannot lose data. If the problem is adversarial, I want to work on it.',
+    "Right now I'm building blockchain security infrastructure at Kimuntu Power, and this fall I start an M.S. in Robotics & Autonomous Systems — same curiosity, pointed at machines that move.",
+  ],
+  facts: [
+    { label: 'base', value: 'Tempe, AZ · remote-ready · US citizen' },
+    { label: 'education', value: 'B.S. Computer Science (Cybersecurity), ASU — May 2026' },
+    { label: 'next_up', value: 'M.S. Robotics & Autonomous Systems — incoming' },
+    { label: 'current_roles', value: 'Software Developer @ Kimuntu Power · Hacker Devils VP' },
+    { label: 'core_stack', value: 'TypeScript · Python · Solidity · PostgreSQL · Linux' },
+    { label: 'off_hours', value: 'CTF competitions · exploit research · home-lab tinkering' },
+  ] satisfies AboutFact[],
+  currently: [
+    'Shipping blockchain security infrastructure at Kimuntu Power',
+    'Building RallyPoint — a civic engagement platform',
+    'Running a Proxmox home lab with VLANs and WireGuard',
+  ],
+  photos: [
+    {
+      src: '/photos/grad-2026.jpg',
+      alt: 'Allan in cap and gown in front of the giant 2026 sign at ASU',
+      caption: 'class of 2026',
+      width: 900,
+      height: 1200,
+    },
+    {
+      src: '/photos/asu-stole.jpg',
+      alt: 'ASU graduation stole with honor cords',
+      caption: 'cybersecurity concentration',
+      width: 900,
+      height: 1200,
+    },
+    {
+      src: '/photos/team-presentation.jpg',
+      alt: 'Allan presenting a project with his team at a final selection event',
+      caption: 'shipping under pressure',
+      width: 1200,
+      height: 800,
+      small: true,
+    },
+  ] satisfies AboutPhoto[],
+} as const;
 
 /* ------------------------------------------------------------------ */
 /* Experience                                                          */
@@ -86,26 +111,25 @@ export const TERMINAL_LINES: string[] = [
 
 export const EXPERIENCE: ExperienceItem[] = [
   {
-    role: 'Blockchain Developer',
-    company: 'KimuntuX Smart Fintech Hub',
-    period: 'Aug 2025 – May 2026',
+    role: 'Software Developer, Blockchain Security',
+    company: 'Kimuntu Power — Remote',
+    period: 'Aug 2025 – Present',
     description: [
-      'Designed and deployed 3 production Solidity smart contracts covering wallet management, commission lifecycle tracking, and payment escrow using OpenZeppelin 5.0.1 security standards.',
-      'Validated 13 on-chain interactions with zero transaction reverts across a local Hardhat node targeting Ethereum Sepolia testnet.',
-      'Engineered a custom Hardhat solc-js compiler fallback subtask resolving cross-environment native binary incompatibilities.',
-      'Produced deployment artifacts and ABI handoffs consumed by a FastAPI backend Web3.py integration layer.',
+      'Build and maintain a production full-stack platform (KimuX): Node.js/Python backend APIs and a React/TypeScript frontend; manage schema design and migrations across a live PostgreSQL database serving financial transactions.',
+      'Implement affiliate reward distribution, brokerage settlement, and payment integrations; debug production issues and ship fixes across frontend, backend, and database layers.',
+      'Coordinate cross-service data consistency between on-chain Solidity contracts and off-chain systems via an async event-driven API bridge.',
     ],
-    tags: ['Solidity', 'Hardhat', 'Ethereum', 'OpenZeppelin', 'Web3.py', 'Smart Contracts'],
+    tags: ['TypeScript', 'Node.js', 'PostgreSQL', 'Solidity', 'React', 'Python'],
   },
   {
     role: 'Data Science Intern',
     company: 'Oracle (GTX) & GRAMMY Museum',
-    period: 'Jan 2024 – May 2024',
+    period: 'Jan 2024 – Jul 2024',
     description: [
-      'Built Python-based ETL pipelines processing operational records for analysis and reporting.',
-      'Applied data transformation and cleaning techniques to historical datasets supporting business intelligence workflows.',
+      'Built ETL pipelines with automated validation and integrity checks over 2M+ production records, reducing manual processing time by 35%; surfaced performance bottlenecks and data quality issues across production environments.',
+      'Delivered structured findings and engineering recommendations to cross-functional stakeholders; trained ML models (scikit-learn) for anomaly detection and pattern recognition.',
     ],
-    tags: ['Python', 'ETL', 'Data Analysis', 'Pandas'],
+    tags: ['Python', 'ETL', 'Scikit-learn', 'Data Analysis'],
   },
   {
     role: 'Principal — Sunday School Program',
@@ -119,48 +143,66 @@ export const EXPERIENCE: ExperienceItem[] = [
     tags: ['Leadership', 'Curriculum Design', 'Operations', 'Mentorship'],
   },
   {
-    role: 'Vice President',
-    company: 'Hacker Devils Club — Arizona State University',
-    period: '2023 – May 2026',
+    role: 'VP of Leadership',
+    company: 'Hacker Devils Cybersecurity Club — Arizona State University',
+    period: 'Aug 2024 – Present',
     description: [
-      'Lead a cybersecurity-focused student organization with recurring CTF participation, security workshops, and technical talks.',
-      'Organize events covering topics including penetration testing, network forensics, and secure software development.',
+      'Organize 10+ technical events per semester including workshops, CTF competitions, and security research sessions.',
+      'Mentor 15+ members in vulnerability research and offensive security; team placed top 30% regionally.',
     ],
-    tags: ['Leadership', 'CTF', 'Cybersecurity', 'Community'],
+    tags: ['Leadership', 'CTF', 'Offensive Security', 'Community'],
   },
   {
-    role: 'Undergraduate Tutor',
+    role: 'Undergraduate Tutor — Data Structures & Algorithms',
     company: 'Arizona State University',
-    period: '2023 – May 2026',
+    period: 'Aug 2024 – Present',
     description: [
-      'Tutored students in Calculus and Data Structures, reinforcing conceptual understanding and problem-solving under exam conditions.',
+      'Mentor 30+ students per semester in algorithm design, recursion, graph modeling, and complexity analysis; build frameworks and worked examples that improve comprehension of core CS problem-solving patterns.',
     ],
-    tags: ['Calculus', 'Data Structures', 'Mentoring'],
-  },
-  {
-    role: 'Collections Specialist',
-    company: 'Discover Financial Services',
-    period: 'Prior',
-    description: [
-      'Managed customer account resolution workflows in a high-volume financial services environment.',
-    ],
-    tags: ['Finance', 'Communication'],
+    tags: ['Algorithms', 'Data Structures', 'Mentoring'],
   },
 ];
 
 /* ------------------------------------------------------------------ */
-/* Featured projects                                                   */
+/* Featured projects — the case files                                  */
 /* ------------------------------------------------------------------ */
 
 export const FEATURED_PROJECTS: FeaturedProject[] = [
   {
+    title: 'RallyPoint — Civic Engagement Platform',
+    description:
+      'A full-stack civic engagement platform that lets residents track local government actions, join community discussions, and measure collective impact — built solo. Next.js 14 App Router with a 12-model Prisma/PostgreSQL schema, Clerk auth with RBAC, Redis rate limiting, Zod-validated APIs, and a Claude AI moderation pipeline with 4-tier toxicity scoring.',
+    tags: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Redis', 'Claude AI'],
+    github: 'https://github.com/abinu2/RallyPoint',
+    visual: 'moderation',
+  },
+  {
+    title: 'Launchpad — AI Business Operations Suite',
+    description:
+      'An AI-powered small business platform with five integrated tools — Quote-to-Cash, Receipt Scanner, Contract Vault, Compliance Autopilot, and Growth Radar — each driven by Vertex AI and Gemini LLM pipelines, sharing state through a Firestore Business Intelligence Graph. Won two competitive hackathon tracks.',
+    tags: ['GCP', 'Vertex AI', 'Gemini', 'Firestore', 'Python'],
+    github: 'https://github.com/abinu2/LaunchPad',
+    demo: 'https://launch-pad-flame.vercel.app',
+    visual: 'orbit',
+    prize: 'Google Cloud Track + Financial Literacy Track Winner',
+  },
+  {
     title: 'Blockchain Commission Smart Contract System',
     description:
-      'Three-contract Ethereum system for automated, tamper-proof affiliate commission payouts. Covers wallet management, commission lifecycle with on-chain event emission, and conditional payment escrow. Validated across 13 live on-chain interactions with zero reverts.',
+      'Three-contract Ethereum system for automated, tamper-proof affiliate commission payouts powering the KimuX platform. Covers wallet management, commission lifecycle with on-chain event emission, and conditional payment escrow. Validated across 13 live on-chain interactions with zero reverts.',
     tags: ['Solidity', 'Hardhat', 'OpenZeppelin', 'Ethereum', 'Web3.py'],
     github: 'https://github.com/abinu2',
     visual: 'contracts',
-    prize: 'KimuntuX — Production Blockchain Layer',
+    prize: 'Kimuntu Power — Production Blockchain Layer',
+  },
+  {
+    title: 'Blockchain Protocol Smart Contract Architecture',
+    description:
+      'Smart contract architecture project recognized at the Claude Builders Club Hackathon. Explored protocol-level design patterns for decentralized systems, from consensus assumptions to on-chain event design.',
+    tags: ['Solidity', 'Blockchain', 'Protocol Design'],
+    github: 'https://github.com/abinu2/Etherfi',
+    visual: 'protocol',
+    prize: 'Claude Builders Club Hackathon — Prize Winner',
   },
   {
     title: 'Network Traffic Anomaly Detection',
@@ -171,27 +213,10 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     visual: 'anomaly',
   },
   {
-    title: 'Blockchain Protocol Smart Contract Architecture',
+    title: 'Infrastructure Engineering Home Lab',
     description:
-      'Smart contract architecture project recognized at the Claude Builders Club Hackathon. Explored protocol-level design patterns for decentralized systems.',
-    tags: ['Solidity', 'Blockchain', 'Protocol Design'],
-    github: 'https://github.com/abinu2',
-    visual: 'protocol',
-    prize: 'Claude Builders Club Hackathon — Prize Winner',
-  },
-  {
-    title: 'Global Development Explorer',
-    description:
-      'Interactive data visualization tool built with D3.js rendering animated bubble scatter plots from historical global development datasets. Supports multi-dimensional filtering by region, year, and metric.',
-    tags: ['D3.js', 'JavaScript', 'HTML/CSS', 'Data Visualization'],
-    github: 'https://github.com/abinu2',
-    visual: 'bubbles',
-  },
-  {
-    title: 'Virtual Network Infrastructure',
-    description:
-      'Multi-node virtual network environment configured from scratch using VirtualBox, Ubuntu LTS, Netplan, and Iptables. Demonstrates routing, firewall rule design, and inter-node communication.',
-    tags: ['Linux', 'VirtualBox', 'Iptables', 'Netplan', 'Networking'],
+      'A private multi-node compute environment mirroring cloud infrastructure patterns: isolated VMs on Proxmox with VLAN segmentation, pfSense routing, Docker-containerized services, WireGuard VPN, Splunk log aggregation, and Bash-automated provisioning.',
+    tags: ['Proxmox', 'Docker', 'pfSense', 'WireGuard', 'Splunk', 'Linux'],
     github: 'https://github.com/abinu2',
     visual: 'network',
   },
@@ -204,54 +229,65 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
 export const SKILL_GROUPS: SkillGroup[] = [
   {
     label: 'Languages',
-    skills: ['Python', 'JavaScript', 'TypeScript', 'Solidity', 'C', 'C++', 'HTML', 'CSS', 'SQL'],
+    skills: ['TypeScript', 'JavaScript', 'Python', 'SQL', 'Java', 'C/C++', 'Bash', 'Go', 'Solidity'],
   },
   {
-    label: 'Frameworks & Libraries',
+    label: 'Full-Stack & Cloud',
     skills: [
-      'React',
-      'Next.js',
+      'Next.js App Router',
+      'React 18/19',
       'Tailwind CSS',
-      'Framer Motion',
-      'D3.js',
-      'Hardhat',
-      'OpenZeppelin',
-      'FastAPI',
-      'Web3.py',
-      'Scikit-learn',
-      'Pandas',
+      'shadcn UI',
+      'React Query',
+      'Zod',
+      'Clerk',
+      'Node.js',
+      'PostgreSQL',
+      'Prisma ORM',
+      'Redis',
+      'AWS Lambda',
+      'Docker',
+      'GitHub Actions',
+      'Vercel',
     ],
   },
   {
     label: 'Systems & Security',
     skills: [
-      'Linux (Ubuntu)',
-      'VirtualBox',
+      'Linux',
+      'Proxmox',
+      'pfSense',
+      'WireGuard',
+      'Splunk',
+      'Wireshark',
       'Iptables',
-      'Netplan',
       'Network Forensics',
       'Buffer Overflow Analysis',
       'CTF',
-      'Wireshark',
-      'Git',
     ],
   },
   {
     label: 'AI & Blockchain',
     skills: [
-      'Prompt Engineering',
-      'Agentic Frameworks',
-      'ETL Pipelines',
-      'Smart Contract Architecture',
+      'Anthropic Claude API',
+      'OpenAI API',
+      'Vercel AI SDK',
+      'Gemini',
+      'Vertex AI',
+      'Scikit-learn',
       'Ethereum',
-      'Sepolia Testnet',
-      'On-chain Event Design',
+      'Hardhat',
+      'OpenZeppelin',
+      'Smart Contract Architecture',
     ],
   },
 ];
 
 /** Flat list for the marquee ticker. */
 export const ALL_SKILLS: string[] = SKILL_GROUPS.flatMap((g) => g.skills);
+
+/** Repos hidden from the live Open Source feed (scratch/test repos). */
+export const REPO_BLOCKLIST: string[] = ['new', 'test', 'Github-Competency'];
 
 /** Conventional GitHub language colors for the Open Source cards. */
 export const LANGUAGE_COLORS: Record<string, string> = {
