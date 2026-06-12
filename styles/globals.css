@@ -8,63 +8,131 @@
 
 html {
   scroll-behavior: smooth;
-  /* Offset anchored scrolling below the fixed navbar (64px) + breathing room. */
-  scroll-padding-top: 96px;
+  scroll-padding-top: 112px;
 }
 
 body {
-  @apply bg-bg text-body font-sans antialiased;
+  @apply bg-paper text-ink font-sans antialiased;
 }
 
 ::selection {
-  @apply bg-accent/30 text-body;
+  @apply bg-acid text-ink;
 }
 
-/* Visible focus rings on every interactive element — accessibility requirement. */
 :focus-visible {
-  outline: 2px solid theme('colors.accent.DEFAULT');
+  outline: 3px solid theme('colors.ink.DEFAULT');
   outline-offset: 2px;
-  border-radius: theme('borderRadius.badge');
 }
 
-/* Thin, themed scrollbar. */
+.dark-section :focus-visible {
+  outline-color: theme('colors.acid');
+}
+
+/* Chunky zine scrollbar. */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 14px;
 }
 ::-webkit-scrollbar-track {
-  background: theme('colors.bg.DEFAULT');
+  background: theme('colors.paper.DEFAULT');
+  border-left: 3px solid theme('colors.ink.DEFAULT');
 }
 ::-webkit-scrollbar-thumb {
-  background: theme('colors.edge.visible');
-  border-radius: theme('borderRadius.pill');
+  background: theme('colors.ink.DEFAULT');
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: theme('colors.body.muted');
+  background: theme('colors.shock');
 }
 
 /* ------------------------------------------------------------------ */
-/* Skills ticker marquee                                               */
+/* Zine textures                                                       */
 /* ------------------------------------------------------------------ */
 
-.marquee-mask {
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
+/* Graph-paper grid for the hero — engineering notebook energy. */
+.graph-paper {
+  background-image:
+    linear-gradient(to right, rgba(13, 13, 13, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 13, 13, 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* CRT scanlines for dark sections — the hacker OS layer. */
+.scanlines {
+  position: relative;
+}
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 255, 102, 0.035) 3px,
+    rgba(0, 255, 102, 0.035) 4px
   );
 }
 
+/* Halftone dot field — zine print texture. */
+.halftone {
+  background-image: radial-gradient(rgba(13, 13, 13, 0.18) 1.5px, transparent 1.5px);
+  background-size: 14px 14px;
+}
+
+/* Outlined display type. */
+.text-stroke {
+  -webkit-text-stroke: 2px theme('colors.ink.DEFAULT');
+  color: transparent;
+}
+.text-stroke-paper {
+  -webkit-text-stroke: 2px theme('colors.paper.DEFAULT');
+  color: transparent;
+}
+.text-stroke-acid {
+  -webkit-text-stroke: 2px theme('colors.acid');
+  color: transparent;
+}
+
+/* Layered glitch shadows for the hero name. */
+.glitch-layers {
+  text-shadow:
+    4px 4px 0 theme('colors.shock'),
+    -4px -4px 0 theme('colors.cyber');
+}
+@media (hover: hover) {
+  .glitch-hover:hover {
+    animation: glitch 250ms steps(2, end) infinite;
+  }
+}
+
+/* Barcode motif — pure CSS. */
+.barcode {
+  background-image: repeating-linear-gradient(
+    to right,
+    theme('colors.ink.DEFAULT') 0 2px,
+    transparent 2px 4px,
+    theme('colors.ink.DEFAULT') 4px 7px,
+    transparent 7px 9px,
+    theme('colors.ink.DEFAULT') 9px 10px,
+    transparent 10px 14px
+  );
+}
+.barcode-paper {
+  background-image: repeating-linear-gradient(
+    to right,
+    theme('colors.paper.DEFAULT') 0 2px,
+    transparent 2px 4px,
+    theme('colors.paper.DEFAULT') 4px 7px,
+    transparent 7px 9px,
+    theme('colors.paper.DEFAULT') 9px 10px,
+    transparent 10px 14px
+  );
+}
+
+/* Marquee edge — no fade masks; brutalism cuts hard. */
+
 /* ------------------------------------------------------------------ */
-/* Reduced motion: kill all animation, respect user preference          */
+/* Reduced motion                                                      */
 /* ------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: reduce) {

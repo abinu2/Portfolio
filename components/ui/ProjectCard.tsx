@@ -1,61 +1,81 @@
-'use client';
-
-import { ExternalLink, Github, Star, Trophy } from 'lucide-react';
-import { LANGUAGE_COLORS } from '@/lib/constants';
+import { ArrowUpRight, Github, Star, Trophy } from 'lucide-react';
+import Sticker from '@/components/ui/Sticker';
 import { truncate } from '@/lib/utils';
-import { colors } from '@/styles/tokens';
 import type { FeaturedProject, GitHubRepo } from '@/types';
 
 type ProjectCardProps =
-  | { variant: 'featured'; project: FeaturedProject }
-  | { variant: 'github'; project: GitHubRepo };
+  | { variant: 'featured'; project: FeaturedProject; index?: number }
+  | { variant: 'github'; project: GitHubRepo; index?: number };
 
 /* ------------------------------------------------------------------ */
-/* Featured card — large, gradient background, top accent border        */
+/* Featured card — EXHIBIT: rotating acid palette, brutal frame         */
 /* ------------------------------------------------------------------ */
 
-function FeaturedCard({ project }: { project: FeaturedProject }) {
+const EXHIBIT_TONES = [
+  { card: 'bg-acid text-ink', tag: 'border-ink bg-paper text-ink' },
+  { card: 'bg-paper text-ink', tag: 'border-ink bg-acid text-ink' },
+  { card: 'bg-shock text-paper', tag: 'border-ink bg-paper text-ink' },
+  { card: 'bg-cyber text-ink', tag: 'border-ink bg-paper text-ink' },
+  { card: 'bg-violet text-paper', tag: 'border-ink bg-paper text-ink' },
+] as const;
+
+function FeaturedCard({ project, index = 0 }: { project: FeaturedProject; index?: number }) {
+  const tone = EXHIBIT_TONES[index % EXHIBIT_TONES.length];
+  const tilt = index % 2 === 0 ? 'md:-rotate-1' : 'md:rotate-1';
+
   return (
     <article
-      className="group relative flex h-full flex-col overflow-hidden rounded-card border border-edge-subtle
-                 border-t-2 border-t-accent bg-gradient-to-br from-bg-secondary to-bg-secondary/40 p-8
-                 transition-all duration-base ease-standard hover:border-edge-visible hover:border-t-accent hover:shadow-glow-sm"
+      className={`group relative flex h-full flex-col border-3 border-ink p-6 shadow-brutal transition-all duration-base ease-standard
+                  hover:rotate-0 hover:-translate-y-1 hover:shadow-brutal-lg md:p-8 ${tone.card} ${tilt}`}
     >
+      {/* Exhibit number */}
+      <span className="font-mono text-xs font-bold uppercase tracking-widest opacity-70">
+        exhibit_{String(index + 1).padStart(2, '0')}.sol
+      </span>
+
       {project.prize && (
-        <span
-          className="absolute right-4 top-4 flex items-center gap-1.5 rounded-badge border border-accent-secondary/40
-                     bg-accent-secondary/10 px-2 py-1 font-mono text-xs text-accent-secondary"
-          title={project.prize}
-        >
-          <Trophy size={12} aria-hidden="true" />
-          <span className="hidden sm:inline">{truncate(project.prize, 40)}</span>
-          <span className="sr-only">{project.prize}</span>
-        </span>
+        <div className="absolute -top-4 -right-2">
+          <Sticker tone="ink" rotate={index % 2 === 0 ? 3 : -3}>
+            <span className="flex items-center gap-1.5">
+              <Trophy size={12} aria-hidden="true" />
+              PRIZE
+            </span>
+          </Sticker>
+        </div>
       )}
 
-      <h4 className="pr-8 text-lg font-semibold text-body transition-colors duration-fast group-hover:text-accent sm:pr-32">
-        {project.title}
-      </h4>
+      <h4 className="mt-3 font-display text-xl uppercase leading-tight md:text-2xl">{project.title}</h4>
 
-      <p className="mt-3 flex-1 text-sm text-body-secondary">{project.description}</p>
+      {project.prize && (
+        <p className="mt-2 font-mono text-xs font-bold uppercase tracking-wide opacity-80">
+          ★ {project.prize}
+        </p>
+      )}
+
+      <p className="mt-4 flex-1 text-base">{project.description}</p>
 
       <div className="mt-6 flex flex-wrap gap-2">
         {project.tags.map((tag) => (
-          <span key={tag} className="rounded-badge bg-bg/60 px-2 py-0.5 font-mono text-xs text-body-secondary">
+          <span
+            key={tag}
+            className={`border-2 px-2 py-0.5 font-mono text-xs font-bold uppercase ${tone.tag}`}
+          >
             {tag}
           </span>
         ))}
       </div>
 
-      <div className="mt-6 flex items-center gap-3">
+      <div className="mt-6 flex items-center gap-3 border-t-3 border-dashed border-ink pt-4">
         <a
           href={project.github}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${project.title} on GitHub`}
-          className="rounded-badge p-2 text-body-secondary transition-colors duration-fast hover:bg-accent/10 hover:text-accent"
+          className="flex items-center gap-2 border-3 border-ink bg-ink px-3 py-1.5 font-mono text-xs font-bold uppercase text-paper
+                     transition-all duration-fast hover:-translate-y-0.5 hover:bg-paper hover:text-ink"
         >
-          <Github size={18} aria-hidden="true" />
+          <Github size={14} aria-hidden="true" />
+          Source
         </a>
         {project.demo && (
           <a
@@ -63,9 +83,11 @@ function FeaturedCard({ project }: { project: FeaturedProject }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${project.title} live demo`}
-            className="rounded-badge p-2 text-body-secondary transition-colors duration-fast hover:bg-accent/10 hover:text-accent"
+            className="flex items-center gap-2 border-3 border-ink bg-paper px-3 py-1.5 font-mono text-xs font-bold uppercase text-ink
+                       transition-all duration-fast hover:-translate-y-0.5 hover:bg-ink hover:text-paper"
           >
-            <ExternalLink size={18} aria-hidden="true" />
+            <ArrowUpRight size={14} aria-hidden="true" />
+            Live
           </a>
         )}
       </div>
@@ -74,46 +96,39 @@ function FeaturedCard({ project }: { project: FeaturedProject }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* GitHub card — compact, language dot + star count                     */
+/* GitHub card — a row of terminal output                               */
 /* ------------------------------------------------------------------ */
 
 function GitHubCard({ project }: { project: GitHubRepo }) {
-  const langColor = project.language
-    ? LANGUAGE_COLORS[project.language] ?? colors.text.secondary
-    : null;
-
   return (
-    <article
-      className="group flex h-full flex-col rounded-card border border-edge-subtle bg-bg-secondary/50 p-6
-                 transition-all duration-base ease-standard hover:-translate-y-1 hover:border-edge-visible hover:shadow-glow-sm"
+    <a
+      href={project.html_url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Open ${project.name} on GitHub`}
+      className="group flex h-full flex-col border-3 border-term/40 bg-ink p-5 font-mono
+                 transition-all duration-fast ease-standard hover:border-term hover:shadow-brutal-term"
     >
       <div className="flex items-start justify-between gap-2">
-        <h4 className="font-mono text-base font-semibold text-body transition-colors duration-fast group-hover:text-accent">
+        <h4 className="text-base font-bold text-term">
+          <span className="text-paper-muted">~/</span>
           {project.name}
         </h4>
-        <a
-          href={project.html_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Open ${project.name} on GitHub`}
-          className="shrink-0 rounded-badge p-1.5 text-body-muted transition-colors duration-fast hover:bg-accent/10 hover:text-accent"
-        >
-          <ExternalLink size={16} aria-hidden="true" />
-        </a>
+        <ArrowUpRight
+          size={16}
+          className="shrink-0 text-paper-muted transition-colors duration-fast group-hover:text-term"
+          aria-hidden="true"
+        />
       </div>
 
-      <p className="mt-2 flex-1 text-sm text-body-secondary">
-        {project.description ? truncate(project.description, 100) : 'No description provided.'}
+      <p className="mt-2 flex-1 text-sm text-paper-muted">
+        {project.description ? truncate(project.description, 100) : '# no description provided'}
       </p>
 
-      <div className="mt-4 flex items-center gap-4 font-mono text-xs text-body-muted">
-        {project.language && langColor && (
+      <div className="mt-4 flex items-center gap-4 text-xs font-bold uppercase tracking-wide text-paper-muted">
+        {project.language && (
           <span className="flex items-center gap-1.5">
-            <span
-              className="h-2.5 w-2.5 rounded-pill"
-              style={{ backgroundColor: langColor }}
-              aria-hidden="true"
-            />
+            <span className="h-2.5 w-2.5 border border-term bg-term/40" aria-hidden="true" />
             {project.language}
           </span>
         )}
@@ -122,17 +137,17 @@ function GitHubCard({ project }: { project: GitHubRepo }) {
           {project.stargazers_count}
         </span>
       </div>
-    </article>
+    </a>
   );
 }
 
 /**
- * Polymorphic project card: renders the large featured layout or the
- * compact GitHub layout depending on `variant`.
+ * Polymorphic project card: zine "exhibit" for featured projects,
+ * terminal-row card for live GitHub repos.
  */
 export default function ProjectCard(props: ProjectCardProps) {
   return props.variant === 'featured' ? (
-    <FeaturedCard project={props.project} />
+    <FeaturedCard project={props.project} index={props.index} />
   ) : (
     <GitHubCard project={props.project} />
   );

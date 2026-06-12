@@ -1,71 +1,75 @@
-'use client';
-
-import { motion, useReducedMotion } from 'framer-motion';
+import Sticker from '@/components/ui/Sticker';
 import type { ExperienceItem } from '@/types';
 
+interface TimelineItemProps extends ExperienceItem {
+  /** Position in the log — drives the giant index number and tilt. */
+  index: number;
+}
+
 /**
- * One entry on the Experience timeline. The node circle sits on the
- * vertical accent line and pulses with a ring animation on hover.
+ * One entry in the FIELD LOG: a brutal paper card with a giant outlined
+ * entry number, stamped period chip, `>>` bullet lines, and sticker tags.
+ * Cards tilt alternately like pasted zine clippings and straighten on hover.
  */
-export default function TimelineItem({ role, company, period, description, tags }: ExperienceItem) {
-  const prefersReducedMotion = useReducedMotion();
+export default function TimelineItem({
+  role,
+  company,
+  period,
+  description,
+  tags,
+  index,
+}: TimelineItemProps) {
+  const tilt = index % 2 === 0 ? '-rotate-1' : 'rotate-1';
+  const stamp = index % 2 === 0 ? 4 : -4;
 
   return (
-    <motion.div
-      role="listitem"
-      className="group relative pb-12 pl-8 last:pb-0"
-      initial={false}
-      whileHover="hover"
+    <article
+      className={`group relative border-3 border-ink bg-paper p-6 shadow-brutal transition-all duration-base ease-standard
+                  hover:rotate-0 hover:shadow-brutal-lg md:p-8 ${tilt}`}
     >
-      {/* Node on the timeline */}
-      <span className="absolute -left-[5px] top-2 flex h-3 w-3" aria-hidden="true">
-        <motion.span
-          className="absolute inline-flex h-full w-full rounded-pill bg-accent"
-          variants={
-            prefersReducedMotion
-              ? undefined
-              : {
-                  hover: {
-                    scale: [1, 2.2],
-                    opacity: [0.6, 0],
-                    transition: { duration: 1, repeat: Infinity, ease: 'easeOut' },
-                  },
-                }
-          }
-        />
-        <span className="relative inline-flex h-3 w-3 rounded-pill bg-accent transition-shadow duration-fast group-hover:shadow-glow-sm" />
+      {/* Giant entry number */}
+      <span
+        className="text-stroke pointer-events-none absolute -top-8 -left-2 select-none font-display text-[80px] leading-none opacity-70 md:-left-6"
+        aria-hidden="true"
+      >
+        {String(index + 1).padStart(2, '0')}
       </span>
 
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="text-lg font-semibold text-body">
-          {role}
-          <span className="text-accent"> @ </span>
-          <span className="text-body-secondary">{company}</span>
-        </h3>
-        <span className="font-mono text-xs text-body-muted">{period}</span>
+      {/* Period stamp */}
+      <div className="absolute -top-4 right-4">
+        <Sticker tone={index % 2 === 0 ? 'shock' : 'ink'} rotate={stamp}>
+          {period}
+        </Sticker>
       </div>
 
-      <ul className="mt-4 space-y-2">
+      <header className="mt-4 md:mt-2">
+        <h3 className="font-display text-xl uppercase leading-tight text-ink md:text-2xl">{role}</h3>
+        <p className="mt-1 font-mono text-sm font-bold uppercase tracking-wide text-ink-muted">
+          @ {company}
+        </p>
+      </header>
+
+      <ul className="mt-5 space-y-2 border-t-3 border-dashed border-ink pt-5">
         {description.map((line, i) => (
-          <li key={i} className="flex gap-3 text-sm text-body-secondary">
-            <span className="mt-1 text-accent" aria-hidden="true">
-              ▹
+          <li key={i} className="flex gap-3 text-base text-ink">
+            <span className="font-mono font-bold text-shock" aria-hidden="true">
+              &gt;&gt;
             </span>
             <span>{line}</span>
           </li>
         ))}
       </ul>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-5 flex flex-wrap gap-2">
         {tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-badge border border-edge-visible bg-bg-secondary/50 px-2 py-0.5 font-mono text-xs text-body-secondary"
+            className="border-2 border-ink bg-acid px-2 py-0.5 font-mono text-xs font-bold uppercase text-ink"
           >
             {tag}
           </span>
         ))}
       </div>
-    </motion.div>
+    </article>
   );
 }

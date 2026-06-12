@@ -1,14 +1,13 @@
 'use client';
 
 import { type ReactNode } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+
 import { cn } from '@/lib/utils';
 
 interface GlowButtonProps {
-  variant?: 'primary' | 'outline';
+  variant?: 'primary' | 'outline' | 'shock';
   href?: string;
   onClick?: () => void;
-  /** Set on anchor renders, e.g. `download` for the resume link. */
   download?: boolean;
   type?: 'button' | 'submit';
   disabled?: boolean;
@@ -17,20 +16,25 @@ interface GlowButtonProps {
   'aria-label'?: string;
 }
 
+/**
+ * Brutal CTA button: thick ink border, hard offset shadow. On hover the
+ * button shoves up-left and the shadow grows; on press it slams flat.
+ * Pure transform/box-shadow — no layout-triggering properties.
+ */
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-card px-6 py-3 text-sm font-semibold ' +
-  'transition-all duration-fast ease-standard cursor-pointer select-none disabled:opacity-50 disabled:cursor-not-allowed';
+  'inline-flex items-center justify-center gap-2 border-3 border-ink px-6 py-3 ' +
+  'font-display text-base uppercase tracking-wide shadow-brutal-sm cursor-pointer select-none ' +
+  'transition-all duration-fast ease-standard ' +
+  'hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal ' +
+  'active:translate-x-1 active:translate-y-1 active:shadow-none ' +
+  'disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-brutal-sm';
 
 const variants = {
-  primary: 'bg-accent text-bg-tertiary hover:shadow-glow',
-  outline: 'border border-accent text-accent bg-transparent hover:bg-accent/10 hover:shadow-glow-sm',
+  primary: 'bg-acid text-ink',
+  outline: 'bg-paper text-ink',
+  shock: 'bg-shock text-paper',
 };
 
-/**
- * The site's CTA button. Primary = filled accent with glow-on-hover,
- * outline = accent border that fills subtly. Scales 1.02 on hover
- * (disabled under prefers-reduced-motion).
- */
 export default function GlowButton({
   variant = 'primary',
   href,
@@ -42,38 +46,19 @@ export default function GlowButton({
   children,
   'aria-label': ariaLabel,
 }: GlowButtonProps) {
-  const prefersReducedMotion = useReducedMotion();
   const classes = cn(base, variants[variant], className);
-  const hover = prefersReducedMotion ? undefined : { scale: 1.02 };
-  const tap = prefersReducedMotion ? undefined : { scale: 0.98 };
 
   if (href) {
     return (
-      <motion.a
-        href={href}
-        onClick={onClick}
-        download={download}
-        className={classes}
-        whileHover={hover}
-        whileTap={tap}
-        aria-label={ariaLabel}
-      >
+      <a href={href} onClick={onClick} download={download} className={classes} aria-label={ariaLabel}>
         {children}
-      </motion.a>
+      </a>
     );
   }
 
   return (
-    <motion.button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      className={classes}
-      whileHover={hover}
-      whileTap={tap}
-      aria-label={ariaLabel}
-    >
+    <button type={type} onClick={onClick} disabled={disabled} className={classes} aria-label={ariaLabel}>
       {children}
-    </motion.button>
+    </button>
   );
 }

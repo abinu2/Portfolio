@@ -1,27 +1,34 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Archivo_Black, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import '@/styles/globals.css';
 
-const inter = Inter({
+const display = Archivo_Black({
+  weight: '400',
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-display',
   display: 'swap',
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const body = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+});
+
+const mono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-jetbrains-mono',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://allanbinu.dev'),
-  title: 'Allan Binu — Software Engineer',
+  metadataBase: new URL('https://portfolio-abinu2s-projects.vercel.app'),
+  title: 'ALLAN BINU — Software Engineer / Security Researcher',
   description:
-    'Blockchain developer, cybersecurity researcher, and full-stack engineer. CS student at Arizona State University.',
+    'Blockchain developer, cybersecurity researcher, and full-stack engineer. CS student at Arizona State University. No templates were harmed.',
   openGraph: {
-    title: 'Allan Binu',
-    description: 'Blockchain · Cybersecurity · AI',
+    title: 'ALLAN BINU',
+    description: 'Blockchain · Cybersecurity · AI — a neo-brutalist portfolio',
     images: ['/og-image.png'],
     type: 'website',
   },
@@ -32,7 +39,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body>{children}</body>
     </html>
   );

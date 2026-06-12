@@ -1,48 +1,47 @@
 /**
- * Design tokens — the single source of truth for every visual decision on the site.
+ * Design tokens — NEO-BRUTALIST ZINE × HACKER OS.
  *
- * Nothing outside this file may declare a raw hex code, px size, or cubic-bezier.
- * `tailwind.config.ts` consumes these values to generate utility classes, and
- * components that need inline values (canvas drawing, Framer Motion transitions)
- * import them directly.
+ * Cream paper + pure ink, acid and shock accents, terminal green for the
+ * OS layer. Hard offset shadows, thick borders, zero blur, zero gradients
+ * (except halftone/scanline textures). Every component pulls from here.
  */
 
 export const colors = {
-  background: {
-    /** Deep slate — page background. */
-    primary: '#0F172A',
-    /** Elevated surfaces: cards, drawers, form fields. */
-    secondary: '#1E293B',
-    /** Deepest layer: hero, terminal card. */
-    tertiary: '#0D1117',
-  },
-  accent: {
-    /** Electric sky blue — primary interactive/highlight color. */
-    primary: '#38BDF8',
-    /** Emerald green — success states and sparing secondary highlights. */
-    secondary: '#34D399',
-  },
-  text: {
-    primary: '#F1F5F9',
-    secondary: '#94A3B8',
-    muted: '#475569',
-  },
-  border: {
-    subtle: '#1E293B',
-    visible: '#334155',
-  },
-  /** For security-related visual cues only. */
-  danger: '#F87171',
+  /** Cream paper — the zine page. */
+  paper: '#F2EDE3',
+  /** Slightly darker paper for alternating surfaces. */
+  paperDim: '#E6DfD0',
+  /** Pure ink — borders, type, dark sections. */
+  ink: '#0D0D0D',
+  /** Soft ink for elevated dark surfaces. */
+  inkSoft: '#1A1A1A',
+  /** Acid yellow-green — primary shout color. */
+  acid: '#D9FF00',
+  /** Shock pink — secondary shout color. */
+  shock: '#FF2E63',
+  /** Terminal green — the hacker OS layer. */
+  term: '#00FF66',
+  /** Electric violet — tertiary accent. */
+  violet: '#7C3AED',
+  /** Cyber blue — quaternary accent. */
+  cyber: '#00C2FF',
+  /** Alert red — security cues only. */
+  danger: '#FF3B30',
+  /** Muted ink for secondary text on paper. */
+  inkMuted: '#4A463C',
+  /** Muted paper for secondary text on ink. */
+  paperMuted: '#A8A294',
 } as const;
 
 export const typography = {
   fontFamily: {
-    /** UI text. Loaded via next/font in app/layout.tsx as a CSS variable. */
-    sans: 'var(--font-inter)',
-    /** Code fragments, terminal output, skill tags. */
+    /** Massive display headings. Loaded via next/font as CSS variable. */
+    display: 'var(--font-display)',
+    /** Body text. */
+    sans: 'var(--font-body)',
+    /** Terminal, code, tags, stamps. */
     mono: 'var(--font-jetbrains-mono)',
   },
-  /** Type scale in px. */
   fontSize: {
     xs: '12px',
     sm: '14px',
@@ -54,52 +53,40 @@ export const typography = {
     '4xl': '64px',
   },
   lineHeight: {
-    body: '1.7',
-    heading: '1.2',
-  },
-  fontWeight: {
-    body: 400,
-    label: 500,
-    subheading: 600,
-    heading: 700,
+    body: '1.6',
+    heading: '0.95',
   },
 } as const;
 
-/** 8px base unit. All padding/margin/gap values are multiples of this. */
-export const spacing = {
-  unit: 8,
-  scale: {
-    1: '8px',
-    2: '16px',
-    3: '24px',
-    4: '32px',
-    5: '40px',
-    6: '48px',
-    8: '64px',
-    10: '80px',
-    12: '96px',
-    16: '128px',
-  },
-} as const;
+/** 8px base unit. */
+export const spacing = { unit: 8 } as const;
 
 export const radii = {
-  /** Tags and badges. */
-  badge: '4px',
-  /** Cards. */
-  card: '8px',
-  /** Modals and drawers. */
-  modal: '12px',
-  /** Pills. */
+  /** Brutalism is square. Pills are the one exception. */
+  none: '0px',
   pill: '9999px',
+} as const;
+
+export const borders = {
+  thin: '2px',
+  thick: '3px',
+  heavy: '5px',
+} as const;
+
+/** Hard offset shadows — never blurred. */
+export const shadows = {
+  sm: `4px 4px 0 0 ${colors.ink}`,
+  md: `8px 8px 0 0 ${colors.ink}`,
+  lg: `12px 12px 0 0 ${colors.ink}`,
+  acid: `8px 8px 0 0 ${colors.acid}`,
+  shock: `8px 8px 0 0 ${colors.shock}`,
+  term: `8px 8px 0 0 ${colors.term}`,
 } as const;
 
 export const motion = {
   duration: {
-    /** Hover transitions. */
     fast: 150,
-    /** Reveals, state changes. */
     base: 300,
-    /** Page-level entrances. */
     slow: 600,
   },
   easing: {
@@ -107,7 +94,6 @@ export const motion = {
     entrance: [0, 0, 0.2, 1] as const,
     exit: [0.4, 0, 1, 1] as const,
   },
-  /** CSS string forms for non-Framer usage (transitions, keyframes). */
   easingCss: {
     standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
     entrance: 'cubic-bezier(0, 0, 0.2, 1)',
@@ -115,15 +101,6 @@ export const motion = {
   },
 } as const;
 
-/** Hero particle field — tuned to read as a network-traffic visualization. */
-export const particles = {
-  countDesktop: 80,
-  countMobile: 40,
-  opacity: 0.3,
-  linkDistance: 120,
-  color: '#F1F5F9',
-} as const;
-
-export const tokens = { colors, typography, spacing, radii, motion, particles } as const;
+export const tokens = { colors, typography, spacing, radii, borders, shadows, motion } as const;
 
 export default tokens;
