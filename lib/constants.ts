@@ -44,21 +44,22 @@ export const ABOUT = {
   headshot: '/headshot.jpg',
   greeting: "Hey — I'm Allan.",
   paragraphs: [
-    "I'm a CS student at Arizona State who got hooked the first time I watched my own network traffic scroll past in Wireshark — and never really stopped looking. Since then I've deployed smart contracts that move real value on-chain, built ML pipelines that flag intrusions in packet captures, and led ASU's Hacker Devils through CTF seasons as VP.",
-    "What ties it together: I like systems you have to earn trust with. Contracts that can't revert, networks that can't leak, models that can't miss. If it's adversarial, I'm interested.",
-    "Off the clock you'll find me grinding CTF challenges, reading post-mortems of other people's exploits, and over-engineering side projects with agentic AI.",
+    "I'm a computer science student at Arizona State who got hooked the first time I watched my own network traffic stream through Wireshark — and never stopped looking. Since then I've deployed production Solidity contracts that move real value on-chain, engineered machine-learning pipelines that flag intrusions in live packet captures, and led ASU's Hacker Devils security club through competitive CTF seasons as Vice President.",
+    'The common thread: I build systems that have to earn trust. Contracts that cannot revert, networks that cannot leak, models that cannot miss. If the problem is adversarial, I want to work on it.',
+    "Outside of coursework I compete in CTFs, study real-world exploit post-mortems, and prototype with agentic AI — the same curiosity, pointed at whatever comes next.",
   ],
   facts: [
     { label: 'base', value: 'Tempe, AZ' },
-    { label: 'school', value: 'Arizona State University — B.S. Computer Science' },
-    { label: 'roles', value: 'Hacker Devils VP · Capstone blockchain dev' },
-    { label: 'stack_of_choice', value: 'Solidity · Python · TypeScript · Linux' },
-    { label: 'off_hours', value: 'CTFs · packet captures · agentic AI experiments' },
+    { label: 'education', value: 'Arizona State University — B.S. Computer Science' },
+    { label: 'current_roles', value: 'Blockchain Developer @ KimuntuX · Hacker Devils VP' },
+    { label: 'core_stack', value: 'Solidity · Python · TypeScript · Linux' },
+    { label: 'focus_areas', value: 'Smart contract security · Network forensics · ML pipelines' },
+    { label: 'off_hours', value: 'CTF competitions · exploit research · agentic AI' },
   ] satisfies AboutFact[],
   currently: [
-    'Shipping the KimuntuX capstone blockchain layer',
-    'Hunting flags with Hacker Devils',
-    'Exploring agentic AI workflows',
+    'Shipping the production blockchain layer at KimuntuX Smart Fintech Hub',
+    'Leading CTF preparation with Hacker Devils',
+    'Prototyping agentic AI workflows',
   ],
 } as const;
 
@@ -86,7 +87,7 @@ export const TERMINAL_LINES: string[] = [
 export const EXPERIENCE: ExperienceItem[] = [
   {
     role: 'Blockchain Developer',
-    company: 'KimuntuX Smart Fintech Hub — ASU Capstone',
+    company: 'KimuntuX Smart Fintech Hub',
     period: 'Aug 2025 – May 2026',
     description: [
       'Designed and deployed 3 production Solidity smart contracts covering wallet management, commission lifecycle tracking, and payment escrow using OpenZeppelin 5.0.1 security standards.',
@@ -159,7 +160,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     tags: ['Solidity', 'Hardhat', 'OpenZeppelin', 'Ethereum', 'Web3.py'],
     github: 'https://github.com/abinu2',
     visual: 'contracts',
-    prize: 'ASU Capstone Blockchain Layer — KimuntuX',
+    prize: 'KimuntuX — Production Blockchain Layer',
   },
   {
     title: 'Network Traffic Anomaly Detection',

@@ -33,7 +33,7 @@ const COMMANDS: Record<string, string[]> = {
     '>   sudo hire_me — do it',
     '>   clear       — wipe the screen',
   ],
-  whoami: ['> allan_binu — cs @ asu', '> security researcher · blockchain dev', '> hacker devils vp · capstone shipper'],
+  whoami: ['> allan_binu — cs @ asu', '> security researcher · blockchain dev', '> blockchain dev @ kimuntux · hacker devils vp'],
   skills: ['> solidity | python | typescript', '> hardhat | react | next.js | fastapi', '> wireshark | iptables | scikit-learn'],
   projects: ['> opening case files…'],
   contact: ['> opening transmission channel…'],

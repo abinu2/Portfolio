@@ -84,7 +84,10 @@ export default function About() {
             <FadeInSection direction="left" className="lg:col-span-3">
               <div>
                 <p className="font-display text-3xl uppercase leading-tight text-ink md:text-[40px]">
-                  {ABOUT.greeting}
+                  Hey — I&apos;m <span className="bg-acid px-2">Allan.</span>
+                </p>
+                <p className="mt-3 font-mono text-sm font-bold uppercase tracking-widest text-ink-muted">
+                  security researcher · blockchain developer · builder
                 </p>
 
                 <div className="mt-6 space-y-5">
@@ -108,7 +111,7 @@ export default function About() {
                 <div className="mt-10 border-3 border-ink bg-paper-dim shadow-brutal">
                   <div className="flex items-center justify-between border-b-3 border-ink bg-acid px-4 py-2">
                     <span className="font-display text-base uppercase">Record Card</span>
-                    <span className="font-mono text-xs font-bold uppercase">grep allan /etc/passwd</span>
+                    <span className="font-mono text-xs font-bold uppercase">cat ~/profile.txt</span>
                   </div>
                   <dl>
                     {ABOUT.facts.map((fact, i) => (
