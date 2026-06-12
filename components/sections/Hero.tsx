@@ -29,7 +29,7 @@ export default function Hero() {
         };
 
   return (
-    <section id="about" className="graph-paper relative overflow-hidden border-b-5 border-ink bg-paper">
+    <section id="top" className="graph-paper relative overflow-hidden border-b-5 border-ink bg-paper">
       {/* Oversized watermark */}
       <span
         className="text-stroke pointer-events-none absolute -right-8 top-24 hidden select-none font-display text-[200px] leading-none opacity-30 lg:block"
@@ -104,8 +104,11 @@ export default function Hero() {
             </Sticker>
           </div>
           <div className="rotate-1 transition-transform duration-base hover:rotate-0">
-            <TerminalText lines={[...TERMINAL_LINES]} typingSpeed={35} />
+            <TerminalText lines={[...TERMINAL_LINES]} typingSpeed={35} interactive />
           </div>
+          <p className="mt-4 text-center font-mono text-xs font-bold uppercase tracking-widest text-ink-muted">
+            ↑ it&apos;s a real shell — type <span className="bg-acid px-1 text-ink">help</span>
+          </p>
         </motion.div>
       </div>
     </section>

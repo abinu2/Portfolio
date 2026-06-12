@@ -1,12 +1,150 @@
 'use client';
 
+import { useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { ArrowUpRight, Github, Trophy } from 'lucide-react';
 import useSWR from 'swr';
 import FadeInSection from '@/components/ui/FadeInSection';
 import Marquee from '@/components/ui/Marquee';
 import ProjectCard from '@/components/ui/ProjectCard';
+import ProjectVisual from '@/components/ui/ProjectVisual';
 import SectionHeading from '@/components/ui/SectionHeading';
 import { FEATURED_PROJECTS } from '@/lib/constants';
 import type { GitHubApiResponse } from '@/types';
+
+/* ------------------------------------------------------------------ */
+/* Interactive case-file explorer                                       */
+/* ------------------------------------------------------------------ */
+
+function CaseFileExplorer() {
+  const [selected, setSelected] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
+  const project = FEATURED_PROJECTS[selected];
+
+  return (
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
+      {/* Tab rail — case files */}
+      <div
+        role="tablist"
+        aria-label="Featured projects"
+        aria-orientation="vertical"
+        className="flex gap-3 overflow-x-auto pb-2 lg:col-span-2 lg:flex-col lg:overflow-visible lg:pb-0"
+      >
+        {FEATURED_PROJECTS.map((p, i) => {
+          const isActive = i === selected;
+          return (
+            <button
+              key={p.title}
+              role="tab"
+              id={`case-tab-${i}`}
+              aria-selected={isActive}
+              aria-controls="case-panel"
+              onClick={() => setSelected(i)}
+              className={`group min-w-[230px] border-3 border-ink p-4 text-left transition-all duration-fast ease-standard lg:min-w-0 ${
+                isActive
+                  ? 'translate-x-0 bg-acid text-ink shadow-brutal lg:translate-x-2'
+                  : 'bg-ink text-paper shadow-none hover:bg-ink-soft hover:shadow-brutal-term'
+              }`}
+            >
+              <span className={`font-mono text-xs font-bold uppercase tracking-widest ${isActive ? 'text-ink' : 'text-term'}`}>
+                case_{String(i + 1).padStart(2, '0')}
+                {p.prize && ' ★'}
+              </span>
+              <span className="mt-1 block font-display text-base uppercase leading-tight">
+                {p.title}
+              </span>
+              <span className={`mt-1 block truncate font-mono text-xs ${isActive ? 'text-ink/70' : 'text-paper-muted'}`}>
+                {p.tags.slice(0, 3).join(' · ')}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Active case panel */}
+      <div
+        role="tabpanel"
+        id="case-panel"
+        aria-labelledby={`case-tab-${selected}`}
+        className="relative lg:col-span-3"
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={project.title}
+            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: [0, 0, 0.2, 1] }}
+            className="border-3 border-ink bg-paper shadow-brutal-shock"
+          >
+            {/* Schematic — live diagram of how the project works */}
+            <div className="relative aspect-[16/10] border-b-3 border-ink bg-paper p-2">
+              <ProjectVisual kind={project.visual} />
+              <span className="absolute bottom-4 right-4 border-2 border-ink bg-ink px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-widest text-term">
+                live schematic — drawn in code
+              </span>
+            </div>
+
+            <div className="p-6 md:p-8">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <h3 className="max-w-md font-display text-xl uppercase leading-tight text-ink md:text-2xl">
+                  {project.title}
+                </h3>
+                {project.prize && (
+                  <span className="flex rotate-2 items-center gap-1.5 border-3 border-ink bg-acid px-3 py-1 font-mono text-xs font-bold uppercase text-ink shadow-brutal-sm">
+                    <Trophy size={12} aria-hidden="true" />
+                    {project.prize}
+                  </span>
+                )}
+              </div>
+
+              <p className="mt-4 text-base text-ink">{project.description}</p>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span key={tag} className="border-2 border-ink bg-paper-dim px-2 py-0.5 font-mono text-xs font-bold uppercase text-ink">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-6 flex items-center gap-3 border-t-3 border-dashed border-ink pt-5">
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} on GitHub`}
+                  className="flex items-center gap-2 border-3 border-ink bg-ink px-4 py-2 font-mono text-xs font-bold uppercase text-paper shadow-brutal-sm
+                             transition-all duration-fast hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal"
+                >
+                  <Github size={14} aria-hidden="true" />
+                  Open Source File
+                </a>
+                {project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${project.title} live demo`}
+                    className="flex items-center gap-2 border-3 border-ink bg-shock px-4 py-2 font-mono text-xs font-bold uppercase text-paper shadow-brutal-sm
+                               transition-all duration-fast hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal"
+                  >
+                    <ArrowUpRight size={14} aria-hidden="true" />
+                    Live
+                  </a>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Live GitHub feed                                                     */
+/* ------------------------------------------------------------------ */
 
 const fetcher = async (url: string): Promise<GitHubApiResponse> => {
   const res = await fetch(url);
@@ -15,7 +153,6 @@ const fetcher = async (url: string): Promise<GitHubApiResponse> => {
   return data;
 };
 
-/** Terminal-green skeleton rows while /api/github resolves. */
 function SkeletonCard() {
   return (
     <div className="h-40 animate-pulse border-3 border-term/20 bg-ink p-5">
@@ -71,10 +208,12 @@ function OpenSourceGrid() {
   );
 }
 
+/* ------------------------------------------------------------------ */
+
 /**
- * THE EXHIBITS — featured work as loud gallery pieces on the dark
- * (hacker OS) side of the zine, followed by a live terminal-style
- * feed of public repos.
+ * THE EXHIBITS — an interactive case-file explorer. Pick a case on the
+ * rail; the panel swaps to an animated schematic of how that project
+ * actually works, plus the write-up. Live GitHub feed below.
  */
 export default function Projects() {
   return (
@@ -88,16 +227,19 @@ export default function Projects() {
       <section id="projects" className="dark-section scanlines border-b-5 border-ink bg-ink">
         <div className="mx-auto max-w-7xl px-6 py-24 md:px-10">
           <FadeInSection>
-            <SectionHeading number="02" title="The Exhibits" subtitle="projects.dir" inverted />
+            <SectionHeading number="02" title="The Exhibits" subtitle="case_files.dir" inverted />
           </FadeInSection>
 
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-            {FEATURED_PROJECTS.map((project, i) => (
-              <FadeInSection key={project.title} delay={(i % 2) * 0.1}>
-                <ProjectCard variant="featured" project={project} index={i} />
-              </FadeInSection>
-            ))}
-          </div>
+          <FadeInSection>
+            <p className="mb-8 -mt-8 max-w-xl font-mono text-sm text-paper-muted">
+              <span className="font-bold text-term">&gt;</span> select a case file — each schematic is
+              a live diagram of the system, drawn and animated in code.
+            </p>
+          </FadeInSection>
+
+          <FadeInSection>
+            <CaseFileExplorer />
+          </FadeInSection>
 
           {/* Live GitHub feed */}
           <FadeInSection>

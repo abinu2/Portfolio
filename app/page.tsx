@@ -7,6 +7,7 @@ import Hero from '@/components/sections/Hero';
  * Everything below the fold is code-split with next/dynamic so the cover
  * paints first and the rest of the zine streams in.
  */
+const About = dynamic(() => import('@/components/sections/About'));
 const Experience = dynamic(() => import('@/components/sections/Experience'));
 const Projects = dynamic(() => import('@/components/sections/Projects'));
 const Skills = dynamic(() => import('@/components/sections/Skills'));
@@ -18,6 +19,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <About />
         <Experience />
         <Projects />
         <Skills />

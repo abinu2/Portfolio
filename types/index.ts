@@ -12,16 +12,27 @@ export interface ExperienceItem {
   tags: string[];
 }
 
-/** A hardcoded, hand-curated project shown in the "Featured Work" grid. */
+/** Which animated schematic the project explorer draws for a project. */
+export type ProjectVisualKind = 'contracts' | 'anomaly' | 'protocol' | 'bubbles' | 'network';
+
+/** A hardcoded, hand-curated project shown in the interactive explorer. */
 export interface FeaturedProject {
   title: string;
   description: string;
   tags: string[];
   github: string;
+  /** Drives the animated SVG schematic in the project explorer. */
+  visual: ProjectVisualKind;
   /** Optional live demo URL. */
   demo?: string;
   /** Optional award/recognition line — renders a trophy badge when present. */
   prize?: string;
+}
+
+/** A label/value pair in the DOSSIER quick-facts table. */
+export interface AboutFact {
+  label: string;
+  value: string;
 }
 
 /** Shape of a repository returned by /api/github (subset of the GitHub REST API). */

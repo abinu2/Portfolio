@@ -1,4 +1,5 @@
 import type {
+  AboutFact,
   ExperienceItem,
   FeaturedProject,
   NavLink,
@@ -34,6 +35,32 @@ export const SOCIAL_LINKS: SocialLink[] = [
   { label: 'LinkedIn', href: SITE.linkedin, icon: 'linkedin' },
   { label: 'Email', href: `mailto:${SITE.email}`, icon: 'mail' },
 ];
+
+/* ------------------------------------------------------------------ */
+/* DOSSIER — the human behind the terminal                             */
+/* ------------------------------------------------------------------ */
+
+export const ABOUT = {
+  headshot: '/headshot.jpg',
+  greeting: "Hey — I'm Allan.",
+  paragraphs: [
+    "I'm a CS student at Arizona State who got hooked the first time I watched my own network traffic scroll past in Wireshark — and never really stopped looking. Since then I've deployed smart contracts that move real value on-chain, built ML pipelines that flag intrusions in packet captures, and led ASU's Hacker Devils through CTF seasons as VP.",
+    "What ties it together: I like systems you have to earn trust with. Contracts that can't revert, networks that can't leak, models that can't miss. If it's adversarial, I'm interested.",
+    "Off the clock you'll find me grinding CTF challenges, reading post-mortems of other people's exploits, and over-engineering side projects with agentic AI.",
+  ],
+  facts: [
+    { label: 'base', value: 'Tempe, AZ' },
+    { label: 'school', value: 'Arizona State University — B.S. Computer Science' },
+    { label: 'roles', value: 'Hacker Devils VP · Capstone blockchain dev' },
+    { label: 'stack_of_choice', value: 'Solidity · Python · TypeScript · Linux' },
+    { label: 'off_hours', value: 'CTFs · packet captures · agentic AI experiments' },
+  ] satisfies AboutFact[],
+  currently: [
+    'Shipping the KimuntuX capstone blockchain layer',
+    'Hunting flags with Hacker Devils',
+    'Exploring agentic AI workflows',
+  ],
+} as const;
 
 /* ------------------------------------------------------------------ */
 /* Hero terminal                                                       */
@@ -80,9 +107,20 @@ export const EXPERIENCE: ExperienceItem[] = [
     tags: ['Python', 'ETL', 'Data Analysis', 'Pandas'],
   },
   {
+    role: 'Principal — Sunday School Program',
+    company: 'St. Thomas Orthodox Church — Phoenix, AZ',
+    period: '2025 – Present',
+    description: [
+      'Direct curriculum development, lesson planning, and instructional standardization across K-12 grade levels; oversee 12+ volunteer instructors and manage a program serving 50+ students.',
+      'Coordinate all program operations including scheduling, parent communication, and event planning; reduced curriculum gaps by standardizing learning objectives and assessment methods across all grade levels.',
+      'Lead weekly sessions and mentor student cohorts directly; design age-appropriate instructional materials and track individual student progress across the academic year.',
+    ],
+    tags: ['Leadership', 'Curriculum Design', 'Operations', 'Mentorship'],
+  },
+  {
     role: 'Vice President',
     company: 'Hacker Devils Club — Arizona State University',
-    period: '2023 – Present',
+    period: '2023 – May 2026',
     description: [
       'Lead a cybersecurity-focused student organization with recurring CTF participation, security workshops, and technical talks.',
       'Organize events covering topics including penetration testing, network forensics, and secure software development.',
@@ -92,7 +130,7 @@ export const EXPERIENCE: ExperienceItem[] = [
   {
     role: 'Undergraduate Tutor',
     company: 'Arizona State University',
-    period: '2023 – 2024',
+    period: '2023 – May 2026',
     description: [
       'Tutored students in Calculus and Data Structures, reinforcing conceptual understanding and problem-solving under exam conditions.',
     ],
@@ -120,6 +158,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       'Three-contract Ethereum system for automated, tamper-proof affiliate commission payouts. Covers wallet management, commission lifecycle with on-chain event emission, and conditional payment escrow. Validated across 13 live on-chain interactions with zero reverts.',
     tags: ['Solidity', 'Hardhat', 'OpenZeppelin', 'Ethereum', 'Web3.py'],
     github: 'https://github.com/abinu2',
+    visual: 'contracts',
     prize: 'ASU Capstone Blockchain Layer — KimuntuX',
   },
   {
@@ -128,6 +167,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       'Machine learning pipeline for real-time identification of network-layer threats. Applies classification models to packet-level traffic features to flag anomalous behavior consistent with intrusion patterns.',
     tags: ['Python', 'Scikit-learn', 'Networking', 'ML', 'Security'],
     github: 'https://github.com/abinu2',
+    visual: 'anomaly',
   },
   {
     title: 'Blockchain Protocol Smart Contract Architecture',
@@ -135,6 +175,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       'Smart contract architecture project recognized at the Claude Builders Club Hackathon. Explored protocol-level design patterns for decentralized systems.',
     tags: ['Solidity', 'Blockchain', 'Protocol Design'],
     github: 'https://github.com/abinu2',
+    visual: 'protocol',
     prize: 'Claude Builders Club Hackathon — Prize Winner',
   },
   {
@@ -143,6 +184,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       'Interactive data visualization tool built with D3.js rendering animated bubble scatter plots from historical global development datasets. Supports multi-dimensional filtering by region, year, and metric.',
     tags: ['D3.js', 'JavaScript', 'HTML/CSS', 'Data Visualization'],
     github: 'https://github.com/abinu2',
+    visual: 'bubbles',
   },
   {
     title: 'Virtual Network Infrastructure',
@@ -150,6 +192,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       'Multi-node virtual network environment configured from scratch using VirtualBox, Ubuntu LTS, Netplan, and Iptables. Demonstrates routing, firewall rule design, and inter-node communication.',
     tags: ['Linux', 'VirtualBox', 'Iptables', 'Netplan', 'Networking'],
     github: 'https://github.com/abinu2',
+    visual: 'network',
   },
 ];
 

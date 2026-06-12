@@ -8,6 +8,30 @@ import { useActiveSection, useScrolledPast } from '@/lib/hooks';
 import { cn } from '@/lib/utils';
 import { motion as motionTokens } from '@/styles/tokens';
 
+/** Acid scroll-progress bar — transform-only, no layout work. */
+function ScrollProgress() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? window.scrollY / max : 0);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <div className="h-1.5 w-full bg-ink" aria-hidden="true">
+      <div
+        className="h-full origin-left bg-acid transition-transform duration-fast ease-standard"
+        style={{ transform: `scaleX(${progress})` }}
+      />
+    </div>
+  );
+}
+
 /** Live HH:MM:SS clock for the system status strip. */
 function SystemClock() {
   const [time, setTime] = useState('');
@@ -78,7 +102,7 @@ export default function Navbar() {
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
           <a
-            href="#about"
+            href="#top"
             className="group flex items-center gap-2 font-display text-lg uppercase tracking-tight text-ink"
           >
             <span className="bg-ink px-2 py-0.5 text-acid transition-colors duration-fast group-hover:bg-shock group-hover:text-paper">
@@ -120,6 +144,8 @@ export default function Navbar() {
           </button>
         </div>
       </nav>
+
+      <ScrollProgress />
 
       {/* Mobile full-screen menu */}
       <AnimatePresence>
