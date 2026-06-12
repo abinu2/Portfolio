@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+html {
+  scroll-behavior: smooth;
+  /* Offset anchored scrolling below the fixed navbar (64px) + breathing room. */
+  scroll-padding-top: 96px;
+}
+
+body {
+  @apply bg-bg text-body font-sans antialiased;
+}
+
+::selection {
+  @apply bg-accent/30 text-body;
+}
+
+/* Visible focus rings on every interactive element — accessibility requirement. */
+:focus-visible {
+  outline: 2px solid theme('colors.accent.DEFAULT');
+  outline-offset: 2px;
+  border-radius: theme('borderRadius.badge');
+}
+
+/* Thin, themed scrollbar. */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: theme('colors.bg.DEFAULT');
+}
+::-webkit-scrollbar-thumb {
+  background: theme('colors.edge.visible');
+  border-radius: theme('borderRadius.pill');
+}
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.body.muted');
+}
+
+/* ------------------------------------------------------------------ */
+/* Skills ticker marquee                                               */
+/* ------------------------------------------------------------------ */
+
+.marquee-mask {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion: kill all animation, respect user preference          */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
