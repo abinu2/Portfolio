@@ -10,7 +10,7 @@ interface EvidencePhoto {
   alt: string;
   caption: string;
   rotate: number;
-  wide?: boolean;
+  small?: boolean;
 }
 
 const EVIDENCE_PHOTOS: EvidencePhoto[] = [
@@ -31,7 +31,7 @@ const EVIDENCE_PHOTOS: EvidencePhoto[] = [
     alt: 'Allan presenting a project with his team at a final selection event',
     caption: 'shipping under pressure',
     rotate: -1,
-    wide: true,
+    small: true,
   },
 ];
 
@@ -106,15 +106,15 @@ export default function About() {
             {EVIDENCE_PHOTOS.map((photo) => (
               <figure
                 key={photo.src}
-                className={`group border-3 border-ink bg-paper p-2 shadow-brutal-sm transition-transform duration-base ease-standard hover:rotate-0 hover:shadow-brutal ${photo.wide ? 'sm:col-span-3' : ''}`}
+                className={`group self-start border-3 border-ink bg-paper p-2 shadow-brutal-sm transition-transform duration-base ease-standard hover:rotate-0 hover:shadow-brutal ${photo.small ? 'w-2/3 sm:w-1/2' : ''}`}
                 style={{ transform: `rotate(${photo.rotate}deg)` }}
               >
-                <div className={`relative w-full overflow-hidden ${photo.wide ? 'aspect-[3/2]' : 'aspect-[3/4]'}`}>
+                <div className={`relative w-full overflow-hidden ${photo.small ? 'aspect-[3/2]' : 'aspect-[3/4]'}`}>
                   <Image
                     src={photo.src}
                     alt={photo.alt}
                     fill
-                    sizes={photo.wide ? '100vw' : '(min-width: 640px) 33vw, 100vw'}
+                    sizes={photo.small ? '(min-width: 640px) 16vw, 33vw' : '(min-width: 640px) 33vw, 100vw'}
                     className="object-cover grayscale-[15%]"
                   />
                 </div>
