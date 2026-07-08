@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Archivo_Black, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import Nav from '@/components/layout/Nav';
 import '@/styles/globals.css';
 
 const display = Archivo_Black({
@@ -29,7 +30,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'ALLAN BINU',
     description: 'Blockchain · Cybersecurity · AI — a neo-brutalist portfolio',
-    images: ['/og-image.png'],
     type: 'website',
   },
   twitter: {
@@ -40,7 +40,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Nav />
+        <main id="main">{children}</main>
+      </body>
     </html>
   );
 }

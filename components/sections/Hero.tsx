@@ -1,115 +1,71 @@
-'use client';
-
-import { motion, useReducedMotion } from 'framer-motion';
+import Image from 'next/image';
+import { ArrowDown, Download, MapPin } from 'lucide-react';
 import GlowButton from '@/components/ui/GlowButton';
 import Sticker from '@/components/ui/Sticker';
 import TerminalText from '@/components/ui/TerminalText';
-import { SITE, TERMINAL_LINES } from '@/lib/constants';
-import { motion as motionTokens } from '@/styles/tokens';
 
-/**
- * The zine cover. Graph-paper backdrop, a name set in 13vw display type
- * with CMYK-misprint glitch layers, stickers slapped around the page,
- * and the hacker OS terminal taped to the corner at a tilt.
- */
+const TERMINAL_LINES = [
+  '$ whoami',
+  'allan_binu — software engineer / security researcher',
+  '',
+  '$ cat skills.txt',
+  'solidity, python, typescript, react, next.js, hardhat, linux',
+  '',
+  '$ status --check',
+  'open to new-grad SWE + security roles, spring 2026',
+];
+
 export default function Hero() {
-  const prefersReducedMotion = useReducedMotion();
-
-  const entrance = (delay: number) =>
-    prefersReducedMotion
-      ? {}
-      : {
-          initial: { opacity: 0, y: 24 },
-          animate: { opacity: 1, y: 0 },
-          transition: {
-            duration: motionTokens.duration.slow / 1000,
-            delay,
-            ease: motionTokens.easing.entrance,
-          },
-        };
-
   return (
-    <section id="top" className="graph-paper relative overflow-hidden border-b-5 border-ink bg-paper">
-      {/* Oversized watermark */}
-      <span
-        className="text-stroke pointer-events-none absolute -right-8 top-24 hidden select-none font-display text-[200px] leading-none opacity-30 lg:block"
-        aria-hidden="true"
-      >
-        EST.
-        <br />
-        2026
-      </span>
-
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-16 px-6 pb-24 pt-40 md:px-10 lg:grid-cols-5">
-        {/* Left — the cover story */}
-        <div className="lg:col-span-3">
-          <motion.div {...entrance(0.05)}>
-            <Sticker tone="ink" rotate={-2} className="text-term">
-              {'// computer_science && cybersecurity'}
+    <section id="top" className="graph-paper relative overflow-hidden border-b-3 border-ink">
+      <div className="mx-auto grid max-w-6xl gap-12 px-4 py-24 md:grid-cols-2 md:items-center md:px-8 md:py-32">
+        <div>
+          <div className="mb-6 flex items-center gap-4">
+            <div className="w-16 shrink-0 -rotate-3 border-3 border-ink shadow-brutal-sm md:w-20">
+              <Image
+                src="/headshot.png"
+                alt="Portrait of Allan Binu"
+                width={200}
+                height={200}
+                className="block h-auto w-full object-cover"
+                priority
+              />
+            </div>
+            <Sticker tone="shock" rotate={-3} className="inline-flex items-center gap-1.5">
+              <MapPin size={12} aria-hidden="true" />
+              Tempe, Arizona
             </Sticker>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            className="glitch-layers glitch-hover mt-6 font-display text-[clamp(64px,13vw,170px)] uppercase leading-[0.85] text-ink"
-            {...entrance(0.15)}
-          >
+          <h1 className="glitch-hover font-display text-[clamp(48px,10vw,104px)] uppercase leading-[0.9] text-ink">
             Allan
             <br />
             Binu
-          </motion.h1>
+          </h1>
 
-          {/* Role strip */}
-          <motion.div
-            className="mt-8 inline-block border-3 border-ink bg-ink px-4 py-2 shadow-brutal-sm"
-            {...entrance(0.3)}
-          >
-            <p className="font-mono text-sm font-bold uppercase tracking-widest text-paper">
-              Software Engineer <span className="text-acid">✦</span> Blockchain Developer{' '}
-              <span className="text-acid">✦</span> Security Researcher
-            </p>
-          </motion.div>
+          <p className="mt-6 max-w-md text-lg text-ink-muted">
+            I build systems that have to earn trust — contracts that can&apos;t revert, networks
+            that can&apos;t leak, pipelines that can&apos;t lose data. CS @ Arizona State
+            University, shipping blockchain security infrastructure at{' '}
+            <span className="font-bold text-ink">Kimuntu Power</span>.
+          </p>
 
-          <motion.p className="mt-8 max-w-xl text-lg text-ink" {...entrance(0.45)}>
-            {SITE.bio}
-          </motion.p>
-
-          <motion.div className="mt-10 flex flex-wrap items-center gap-5" {...entrance(0.6)}>
-            <GlowButton variant="primary" href="#projects">
-              View the Exhibits ↓
+          <div className="mt-8 flex flex-wrap gap-4">
+            <GlowButton href="#work" variant="primary">
+              View Work
+              <ArrowDown size={18} aria-hidden="true" />
             </GlowButton>
-            <GlowButton variant="outline" href={SITE.resume} download>
-              Steal My Resume
+            <GlowButton href="#contact" variant="outline">
+              Get in Touch
             </GlowButton>
-          </motion.div>
-
-          {/* Barcode footer of the cover */}
-          <motion.div className="mt-12 flex items-center gap-4" {...entrance(0.75)}>
-            <span className="barcode h-10 w-36" aria-hidden="true" />
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-ink-muted">
-              tempe_az · asu · vol. 01
-            </span>
-          </motion.div>
+            <GlowButton href="/resume.pdf" download variant="shock" aria-label="Download Allan's resume (PDF)">
+              Resume
+              <Download size={18} aria-hidden="true" />
+            </GlowButton>
+          </div>
         </div>
 
-        {/* Right — the OS window */}
-        <motion.div className="relative lg:col-span-2" {...entrance(0.35)}>
-          <div className="absolute -top-6 left-6 z-10">
-            <Sticker tone="shock" rotate={5}>
-              ★ open to work
-            </Sticker>
-          </div>
-          <div className="absolute -bottom-5 right-4 z-10">
-            <Sticker tone="violet" rotate={-4}>
-              ctf player // hacker devils vp
-            </Sticker>
-          </div>
-          <div className="rotate-1 transition-transform duration-base hover:rotate-0">
-            <TerminalText lines={[...TERMINAL_LINES]} typingSpeed={35} interactive />
-          </div>
-          <p className="mt-4 text-center font-mono text-xs font-bold uppercase tracking-widest text-ink-muted">
-            ↑ it&apos;s a real shell — type <span className="bg-acid px-1 text-ink">help</span>
-          </p>
-        </motion.div>
+        <TerminalText lines={TERMINAL_LINES} />
       </div>
     </section>
   );

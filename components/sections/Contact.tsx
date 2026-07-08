@@ -1,41 +1,34 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import { Github, Linkedin, Loader2, Mail } from 'lucide-react';
-import FadeInSection from '@/components/ui/FadeInSection';
+import Image from 'next/image';
+import { CheckCircle2, Loader2, Mail, Send, XCircle } from 'lucide-react';
 import GlowButton from '@/components/ui/GlowButton';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Sticker from '@/components/ui/Sticker';
-import { SOCIAL_LINKS } from '@/lib/constants';
 import type { ContactApiResponse } from '@/types';
 
-const ICONS = { github: Github, linkedin: Linkedin, mail: Mail } as const;
-const SOCIAL_TONES = ['bg-acid text-ink', 'bg-cyber text-ink', 'bg-shock text-paper'] as const;
-
-type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
+type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 const inputClasses =
-  'w-full border-3 border-ink bg-paper px-4 py-3 font-mono text-sm text-ink ' +
-  'placeholder:text-ink-muted/60 transition-colors duration-fast focus:bg-acid/20 focus:outline-none';
+  'w-full border-3 border-ink bg-paper px-4 py-3 font-mono text-sm text-ink placeholder:text-ink-muted ' +
+  'focus:outline-none focus-visible:outline-none';
 
-/**
- * TRANSMIT — contact section on the ink side of the zine. The form sits
- * on a tilted paper card like a tear-out reply coupon.
- */
 export default function Contact() {
-  const [status, setStatus] = useState<FormStatus>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [status, setStatus] = useState<Status>('idle');
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus('submitting');
-    setErrorMessage('');
+    setError(null);
 
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const data = new FormData(form);
     const payload = {
-      name: String(formData.get('name') ?? ''),
-      email: String(formData.get('email') ?? ''),
-      message: String(formData.get('message') ?? ''),
+      name: String(data.get('name') ?? ''),
+      email: String(data.get('email') ?? ''),
+      message: String(data.get('message') ?? ''),
     };
 
     try {
@@ -44,163 +37,125 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      const data = (await res.json()) as ContactApiResponse;
+      const result = (await res.json()) as ContactApiResponse;
 
-      if (res.ok && data.success) {
-        setStatus('success');
-      } else {
+      if (!res.ok || !result.success) {
         setStatus('error');
-        setErrorMessage(data.error ?? 'Something went wrong. Please try again.');
+        setError(result.error ?? 'Something went wrong. Please try again.');
+        return;
       }
+
+      setStatus('success');
+      form.reset();
     } catch {
       setStatus('error');
-      setErrorMessage('Network error. Please try again or email me directly.');
+      setError('Network error — please email me directly instead.');
     }
   }
 
   return (
-    <section id="contact" className="dark-section scanlines bg-ink">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:px-10">
-        <FadeInSection>
-          <SectionHeading number="04" title="Transmit" subtitle="contact.sh" inverted />
-        </FadeInSection>
+    <section id="contact" className="border-b-3 border-ink bg-paper-dim px-4 py-24 md:px-8 md:py-32">
+      <div className="mx-auto max-w-3xl">
+        <SectionHeading number="05" title="Get In Touch" subtitle="sendmail.sh" />
 
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
-          {/* Left — the pitch */}
-          <FadeInSection direction="right">
-            <div>
-              <p className="font-display text-2xl uppercase leading-tight text-paper md:text-3xl">
-                Hire the kid who reads <span className="bg-shock px-2 text-paper">packet dumps</span>{' '}
-                for fun.
-              </p>
-              <p className="mt-6 max-w-md text-lg text-paper-muted">
-                I am actively looking for opportunities in cybersecurity engineering, full-stack AI
-                development, and blockchain infrastructure. If you are working on something
-                interesting or have a role that fits, reach out.
-              </p>
-
-              <div className="mt-10 flex gap-5">
-                {SOCIAL_LINKS.map((link, i) => {
-                  const Icon = ICONS[link.icon];
-                  return (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      target={link.icon === 'mail' ? undefined : '_blank'}
-                      rel="noopener noreferrer"
-                      aria-label={link.label}
-                      className={`flex h-14 w-14 items-center justify-center border-3 border-ink shadow-brutal-acid
-                                  transition-all duration-fast ease-standard
-                                  hover:-translate-x-1 hover:-translate-y-1 active:translate-x-1 active:translate-y-1 active:shadow-none
-                                  ${SOCIAL_TONES[i % SOCIAL_TONES.length]}`}
-                    >
-                      <Icon size={22} aria-hidden="true" />
-                    </a>
-                  );
-                })}
-              </div>
-
-              <p className="mt-12 font-mono text-xs uppercase tracking-widest text-paper-muted">
-                avg_response_time: &lt;24h · encryption: optional · enthusiasm: guaranteed
-              </p>
+        <div className="mb-10 flex justify-end">
+          <div className="w-28 -rotate-3 border-3 border-ink bg-paper p-1.5 shadow-brutal-sm md:w-32">
+            <div className="relative aspect-[2/3] w-full overflow-hidden">
+              <Image
+                src="/photos/asu-stole.webp"
+                alt="ASU graduation stole with honor cords"
+                fill
+                sizes="(min-width: 768px) 128px, 112px"
+                className="object-cover"
+              />
             </div>
-          </FadeInSection>
-
-          {/* Right — the reply coupon */}
-          <FadeInSection direction="left">
-            <div className="relative -rotate-1 border-3 border-ink bg-paper p-6 shadow-brutal-shock transition-transform duration-base hover:rotate-0 md:p-8">
-              <div className="absolute -top-4 right-6">
-                <Sticker tone="ink" rotate={3} className="text-term">
-                  reply_coupon.txt
-                </Sticker>
-              </div>
-
-              {status === 'success' ? (
-                <div className="flex min-h-[320px] flex-col items-center justify-center gap-5 text-center" role="status">
-                  <Sticker tone="term" rotate={-4} className="px-5 py-2 text-base">
-                    ✓ TRANSMISSION RECEIVED
-                  </Sticker>
-                  <p className="font-display text-xl uppercase text-ink">Message sent.</p>
-                  <p className="font-mono text-sm text-ink-muted">
-                    ACK expected within 24 hours. Thanks for reaching out.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
-                  <div>
-                    <label
-                      htmlFor="contact-name"
-                      className="mb-1 block font-mono text-xs font-bold uppercase tracking-widest text-ink"
-                    >
-                      $ your_name
-                    </label>
-                    <input
-                      id="contact-name"
-                      name="name"
-                      type="text"
-                      required
-                      autoComplete="name"
-                      placeholder="Jane Recruiter"
-                      className={inputClasses}
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="contact-email"
-                      className="mb-1 block font-mono text-xs font-bold uppercase tracking-widest text-ink"
-                    >
-                      $ your_email
-                    </label>
-                    <input
-                      id="contact-email"
-                      name="email"
-                      type="email"
-                      required
-                      autoComplete="email"
-                      placeholder="you@company.com"
-                      className={inputClasses}
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="contact-message"
-                      className="mb-1 block font-mono text-xs font-bold uppercase tracking-widest text-ink"
-                    >
-                      $ payload
-                    </label>
-                    <textarea
-                      id="contact-message"
-                      name="message"
-                      required
-                      rows={5}
-                      placeholder="What are you building?"
-                      className={`${inputClasses} resize-y`}
-                    />
-                  </div>
-
-                  {status === 'error' && (
-                    <p className="border-3 border-danger bg-danger/10 px-3 py-2 font-mono text-sm font-bold text-danger" role="alert">
-                      ERR: {errorMessage}
-                    </p>
-                  )}
-
-                  <GlowButton type="submit" variant="shock" disabled={status === 'submitting'}>
-                    {status === 'submitting' ? (
-                      <>
-                        <Loader2 size={16} className="animate-spin" aria-hidden="true" />
-                        Transmitting…
-                      </>
-                    ) : (
-                      'Send Transmission →'
-                    )}
-                  </GlowButton>
-                </form>
-              )}
+            <div className="pt-1.5">
+              <Sticker tone="paper" rotate={0} className="border-2 text-[10px] shadow-none">
+                cybersecurity concentration
+              </Sticker>
             </div>
-          </FadeInSection>
+          </div>
         </div>
+
+        {status === 'success' ? (
+          <div className="flex items-start gap-4 border-3 border-ink bg-term/20 p-8 shadow-brutal">
+            <CheckCircle2 size={28} className="shrink-0 text-ink" aria-hidden="true" />
+            <div>
+              <p className="font-display text-xl uppercase text-ink">Message sent</p>
+              <p className="mt-2 text-ink-muted">
+                Thanks for reaching out — I&apos;ll get back to you soon. You can also reach me
+                directly at{' '}
+                <a href="mailto:allanbinu197@gmail.com" className="font-bold text-ink underline">
+                  allanbinu197@gmail.com
+                </a>
+                .
+              </p>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+            <div className="grid gap-5 md:grid-cols-2">
+              <div>
+                <label htmlFor="name" className="mb-2 block font-mono text-xs font-bold uppercase tracking-widest text-ink-muted">
+                  Name
+                </label>
+                <input id="name" name="name" type="text" required maxLength={200} className={inputClasses} placeholder="Jane Doe" />
+              </div>
+              <div>
+                <label htmlFor="email" className="mb-2 block font-mono text-xs font-bold uppercase tracking-widest text-ink-muted">
+                  Email
+                </label>
+                <input id="email" name="email" type="email" required maxLength={320} className={inputClasses} placeholder="jane@company.com" />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="message" className="mb-2 block font-mono text-xs font-bold uppercase tracking-widest text-ink-muted">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                maxLength={5000}
+                rows={6}
+                className={inputClasses}
+                placeholder="What are you building?"
+              />
+            </div>
+
+            {status === 'error' && error && (
+              <div className="flex items-center gap-2 border-3 border-danger bg-danger/10 px-4 py-3 font-mono text-sm text-ink">
+                <XCircle size={16} className="shrink-0 text-danger" aria-hidden="true" />
+                {error}
+              </div>
+            )}
+
+            <div className="flex flex-wrap items-center gap-4">
+              <GlowButton type="submit" variant="primary" disabled={status === 'submitting'}>
+                {status === 'submitting' ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" aria-hidden="true" />
+                    Sending…
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <Send size={18} aria-hidden="true" />
+                  </>
+                )}
+              </GlowButton>
+
+              <a
+                href="mailto:allanbinu197@gmail.com"
+                className="flex items-center gap-2 font-mono text-sm font-bold uppercase text-ink-muted transition-colors duration-fast hover:text-ink"
+              >
+                <Mail size={16} aria-hidden="true" />
+                or email directly
+              </a>
+            </div>
+          </form>
+        )}
       </div>
     </section>
   );

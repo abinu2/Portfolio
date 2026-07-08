@@ -1,175 +1,79 @@
 import Image from 'next/image';
-import FadeInSection from '@/components/ui/FadeInSection';
-import Marquee from '@/components/ui/Marquee';
+import GlowButton from '@/components/ui/GlowButton';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Sticker from '@/components/ui/Sticker';
-import { ABOUT } from '@/lib/constants';
+import SkillBadge from '@/components/ui/SkillBadge';
+import { skillGroups } from '@/data/skills';
 
-/**
- * DOSSIER — the human behind the terminal. Headshot taped into the zine
- * like a case-file photo, first-person story, a quick-facts record card,
- * and a "currently" stack so the page reads like a person, not a resume.
- */
 export default function About() {
   return (
-    <>
-      <Marquee
-        items={['The Dossier', 'Tempe AZ', 'ASU', 'Hacker Devils', 'Wireshark Native', 'Est. 2026']}
-        tone="ink"
-      />
+    <section id="about" className="border-b-3 border-ink bg-paper px-4 py-24 md:px-8 md:py-32">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeading number="01" title="About" subtitle="whoami.md" />
 
-      <section id="about" className="border-b-5 border-ink bg-paper">
-        <div className="mx-auto max-w-6xl px-6 py-24 md:px-10">
-          <FadeInSection>
-            <SectionHeading number="00" title="The Dossier" subtitle="subject_profile.txt" />
-          </FadeInSection>
-
-          <div className="grid grid-cols-1 gap-16 lg:grid-cols-5">
-            {/* The photo — taped-in case-file polaroid */}
-            <FadeInSection direction="right" className="lg:col-span-2">
-              <div className="relative mx-auto max-w-sm">
-                {/* Tape strips */}
-                <span
-                  className="absolute -top-3 left-8 z-10 h-7 w-24 -rotate-6 border-2 border-ink/30 bg-acid/80"
-                  aria-hidden="true"
+        <div className="grid gap-16 md:grid-cols-[1.1fr_1fr]">
+          <div className="space-y-5 text-lg text-ink">
+            <div className="float-right ml-6 mb-2 w-32 rotate-2 border-3 border-ink bg-paper p-1.5 shadow-brutal-sm md:w-40">
+              <div className="relative aspect-[3/4] w-full overflow-hidden">
+                <Image
+                  src="/photos/grad-2026.webp"
+                  alt="Allan in cap and gown in front of the giant 2026 sign at ASU"
+                  fill
+                  sizes="(min-width: 768px) 160px, 128px"
+                  className="object-cover"
                 />
-                <span
-                  className="absolute -bottom-3 right-8 z-10 h-7 w-24 rotate-6 border-2 border-ink/30 bg-acid/80"
-                  aria-hidden="true"
-                />
-
-                <figure className="-rotate-2 border-3 border-ink bg-paper p-3 pb-16 shadow-brutal transition-transform duration-base hover:rotate-0">
-                  <div className="relative aspect-square overflow-hidden border-3 border-ink">
-                    <Image
-                      src={ABOUT.headshot}
-                      alt="Headshot of Allan Binu"
-                      width={800}
-                      height={800}
-                      className="h-full w-full object-cover transition-transform duration-slow ease-standard hover:scale-105"
-                    />
-                    {/* Scanline pass over the photo — OS layer */}
-                    <div className="scanlines pointer-events-none absolute inset-0" aria-hidden="true" />
-                  </div>
-                  <figcaption className="absolute bottom-4 left-0 w-full text-center font-mono text-sm font-bold uppercase tracking-widest text-ink">
-                    subject: allan_binu
-                  </figcaption>
-                </figure>
-
-                <div className="absolute -right-4 top-10 z-10">
-                  <Sticker tone="shock" rotate={8}>
-                    verified human
-                  </Sticker>
-                </div>
               </div>
-
-              {/* Currently stack */}
-              <div className="mt-14 border-3 border-ink bg-ink p-5 shadow-brutal-acid">
-                <p className="font-mono text-xs font-bold uppercase tracking-widest text-acid">
-                  $ ps aux | grep allan — currently running:
-                </p>
-                <ul className="mt-3 space-y-2">
-                  {ABOUT.currently.map((item) => (
-                    <li key={item} className="flex gap-3 font-mono text-sm text-term">
-                      <span className="animate-blink" aria-hidden="true">
-                        ▸
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </FadeInSection>
-
-            {/* The story + record card */}
-            <FadeInSection direction="left" className="lg:col-span-3">
-              <div>
-                <p className="font-display text-3xl uppercase leading-tight text-ink md:text-[40px]">
-                  Hey — I&apos;m <span className="bg-acid px-2">Allan.</span>
-                </p>
-                <p className="mt-3 font-mono text-sm font-bold uppercase tracking-widest text-ink-muted">
-                  security researcher · blockchain developer · builder
-                </p>
-
-                <div className="mt-6 space-y-5">
-                  {ABOUT.paragraphs.map((para, i) => (
-                    <p key={i} className="text-lg leading-relaxed text-ink">
-                      {i === 0 ? (
-                        <>
-                          <span className="float-left mr-2 font-display text-5xl leading-[0.8] text-shock" aria-hidden="true">
-                            {para.charAt(0)}
-                          </span>
-                          {para.slice(1)}
-                        </>
-                      ) : (
-                        para
-                      )}
-                    </p>
-                  ))}
-                </div>
-
-                {/* Quick-facts record card */}
-                <div className="mt-10 border-3 border-ink bg-paper-dim shadow-brutal">
-                  <div className="flex items-center justify-between border-b-3 border-ink bg-acid px-4 py-2">
-                    <span className="font-display text-base uppercase">Record Card</span>
-                    <span className="font-mono text-xs font-bold uppercase">cat ~/profile.txt</span>
-                  </div>
-                  <dl>
-                    {ABOUT.facts.map((fact, i) => (
-                      <div
-                        key={fact.label}
-                        className={`grid grid-cols-1 gap-1 px-4 py-3 sm:grid-cols-[160px_1fr] sm:gap-4 ${
-                          i !== ABOUT.facts.length - 1 ? 'border-b-2 border-dashed border-ink/40' : ''
-                        }`}
-                      >
-                        <dt className="font-mono text-xs font-bold uppercase tracking-widest text-shock">
-                          {fact.label}:
-                        </dt>
-                        <dd className="font-mono text-sm text-ink">{fact.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              </div>
-            </FadeInSection>
-          </div>
-
-          {/* Evidence strip — photos pinned into the file */}
-          <FadeInSection>
-            <div className="mt-20">
-              <p className="mb-6 font-mono text-xs font-bold uppercase tracking-widest text-ink-muted">
-                [attached] // field_evidence — {ABOUT.photos.length} items
-              </p>
-              <div className="flex flex-wrap items-end justify-center gap-10 md:justify-start">
-                {ABOUT.photos.map((photo, i) => (
-                  <figure
-                    key={photo.src}
-                    className={`relative border-3 border-ink bg-paper p-2 pb-10 shadow-brutal transition-all duration-base ease-standard hover:rotate-0 hover:-translate-y-1 hover:shadow-brutal-lg ${
-                      i % 2 === 0 ? '-rotate-2' : 'rotate-2'
-                    } ${photo.small ? 'w-48 md:w-56' : 'w-56 md:w-72'}`}
-                  >
-                    <span
-                      className={`absolute -top-3 left-1/2 z-10 h-6 w-20 -translate-x-1/2 border-2 border-ink/30 bg-acid/80 ${
-                        i % 2 === 0 ? 'rotate-3' : '-rotate-3'
-                      }`}
-                      aria-hidden="true"
-                    />
-                    <Image
-                      src={photo.src}
-                      alt={photo.alt}
-                      width={photo.width}
-                      height={photo.height}
-                      className="h-auto w-full border-2 border-ink object-cover"
-                    />
-                    <figcaption className="absolute bottom-2 left-0 w-full text-center font-mono text-xs font-bold uppercase tracking-widest text-ink">
-                      {photo.caption}
-                    </figcaption>
-                  </figure>
-                ))}
+              <div className="pt-1.5">
+                <Sticker tone="paper" rotate={0} className="border-2 shadow-none">
+                  class of 2026
+                </Sticker>
               </div>
             </div>
-          </FadeInSection>
+
+            <p>
+              I&apos;m a Computer Science student at Arizona State University (Cybersecurity
+              concentration, graduating May 2026, headed into an M.S. in Robotics &amp; Autonomous
+              Systems) who&apos;d rather ship something that survives an adversarial environment
+              than something that just demos well.
+            </p>
+            <p>
+              At <span className="font-bold">Kimuntu Power</span> I build production blockchain
+              security infrastructure — Solidity contracts, a Node.js/Python backend, and a React
+              frontend sitting on top of a live PostgreSQL layer handling real financial
+              transactions.
+            </p>
+            <p>
+              I&apos;m VP of Leadership for <span className="font-bold">ASU Hacker Devils</span>,
+              a competitive CTF team ranked top 30% regionally, and I tutor undergrads through
+              Data Structures &amp; Algorithms. Off the clock I run a Proxmox home lab with VLAN
+              segmentation and WireGuard, mostly to break my own network before something else
+              does.
+            </p>
+
+            <div className="pt-4">
+              <GlowButton href="#contact" variant="shock">
+                Say hello
+              </GlowButton>
+            </div>
+          </div>
+
+          <div className="space-y-8">
+            {skillGroups.map((group) => (
+              <div key={group.label}>
+                <p className="mb-3 font-mono text-xs font-bold uppercase tracking-widest text-ink-muted">
+                  {'// '}
+                  {group.label}
+                </p>
+                <div className="flex flex-wrap gap-2.5">
+                  {group.skills.map((skill, i) => (
+                    <SkillBadge key={skill} skill={skill} index={i} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
