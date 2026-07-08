@@ -1,29 +1,23 @@
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
-import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
-import Experience from '@/components/sections/Experience';
-import Projects from '@/components/sections/Projects';
-import Skills from '@/components/sections/Skills';
 import Contact from '@/components/sections/Contact';
+import FeaturedWork from '@/components/sections/FeaturedWork';
+import FieldLog from '@/components/sections/FieldLog';
+import Hero from '@/components/sections/Hero';
+import LiveFeed from '@/components/sections/LiveFeed';
+import Footer from '@/components/layout/Footer';
+import Marquee from '@/components/ui/Marquee';
+import { marqueeSkills } from '@/data/skills';
 
-/*
- * Sections are statically imported (no next/dynamic): the page is light,
- * and lazy sections were shifting layout after anchor jumps, making
- * #section links land short. Static imports keep anchors exact.
- */
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Projects />
-        <Skills />
-        <Contact />
-      </main>
+      <Hero />
+      <Marquee items={[...marqueeSkills]} tone="acid" />
+      <FeaturedWork />
+      <LiveFeed />
+      <FieldLog />
+      <About />
+      <Contact />
       <Footer />
     </>
   );

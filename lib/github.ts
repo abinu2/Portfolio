@@ -1,68 +1,54 @@
-import { REPO_BLOCKLIST } from '@/lib/constants';
 import type { GitHubRepo } from '@/types';
 
-const GITHUB_USER = 'abinu2';
-const GITHUB_API = `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`;
+const GITHUB_USERNAME = 'abinu2';
 
-/** Raw repo shape from the GitHub REST API (only the fields we touch). */
-interface RawGitHubRepo {
-  name: string;
-  description: string | null;
-  html_url: string;
-  stargazers_count: number;
-  language: string | null;
-  updated_at: string;
-  topics?: string[];
-  fork: boolean;
-}
+/** Repos to hide from the live grid — profile README + non-portfolio practice repos. */
+const EXCLUDED_REPOS = new Set(['abinu2', 'Github-Competency']);
+
+/** Topics that mark a repo as classwork rather than portfolio-worthy work. */
+const EXCLUDED_TOPICS = new Set(['coursework']);
 
 /**
- * Fetch Allan's public repositories, drop forks, rank by stars
- * (ties broken by most recent update), and return the top 6 trimmed
- * to the fields the frontend needs.
- *
- * The fetch is cached for 1 hour via Next's data cache.
- * Throws on non-200 — the route handler converts that to a structured error.
+ * Pulls the user's public repos straight from the GitHub REST API at
+ * request time (cached + revalidated via Next's fetch integration), so the
+ * "live" project grid updates itself whenever a new repo is pushed —
+ * no manual edits, no separate CMS.
  */
-export async function fetchTopRepos(): Promise<GitHubRepo[]> {
-  const headers: HeadersInit = {
-    Accept: 'application/vnd.github+json',
-    'X-GitHub-Api-Version': '2022-11-28',
-  };
+export async function fetchGithubRepos(): Promise<GitHubRepo[]> {
+  try {
+    const headers: HeadersInit = {
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+    };
 
-  // Unauthenticated requests work but are rate-limited to 60/hr;
-  // set GITHUB_TOKEN to raise the limit to 5000/hr.
-  if (process.env.GITHUB_TOKEN) {
-    headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+    // Unauthenticated requests are capped at 60/hr; set GITHUB_TOKEN (no
+    // scopes needed, public repos only) to raise that to 5000/hr.
+    if (process.env.GITHUB_TOKEN) {
+      headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+    }
+
+    const res = await fetch(
+      `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=100`,
+      {
+        headers,
+        next: { revalidate: 3600 },
+      },
+    );
+
+    if (!res.ok) return [];
+
+    const repos = (await res.json()) as GitHubRepo[];
+
+    return repos
+      .filter(
+        (repo) =>
+          !repo.fork &&
+          !repo.archived &&
+          !EXCLUDED_REPOS.has(repo.name) &&
+          !repo.topics?.some((topic) => EXCLUDED_TOPICS.has(topic)),
+      )
+      .sort((a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime());
+  } catch {
+    return [];
   }
-
-  const res = await fetch(GITHUB_API, {
-    headers,
-    next: { revalidate: 3600 }, // cache for 1 hour
-  });
-
-  if (!res.ok) {
-    throw new Error(`GitHub API responded with ${res.status}`);
-  }
-
-  const raw = (await res.json()) as RawGitHubRepo[];
-
-  return raw
-    .filter((repo) => !repo.fork && !REPO_BLOCKLIST.includes(repo.name))
-    .sort((a, b) => {
-      if (b.stargazers_count !== a.stargazers_count) {
-        return b.stargazers_count - a.stargazers_count;
-      }
-      return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
-    })
-    .slice(0, 6)
-    .map((repo) => ({
-      name: repo.name,
-      description: repo.description,
-      html_url: repo.html_url,
-      stargazers_count: repo.stargazers_count,
-      language: repo.language,
-      updated_at: repo.updated_at,
-      topics: repo.topics ?? [],
-    }));
 }

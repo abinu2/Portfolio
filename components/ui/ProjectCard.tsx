@@ -12,21 +12,21 @@ type ProjectCardProps =
 /* ------------------------------------------------------------------ */
 
 const EXHIBIT_TONES = [
-  { card: 'bg-acid text-ink', tag: 'border-ink bg-paper text-ink' },
-  { card: 'bg-paper text-ink', tag: 'border-ink bg-acid text-ink' },
-  { card: 'bg-shock text-paper', tag: 'border-ink bg-paper text-ink' },
-  { card: 'bg-cyber text-ink', tag: 'border-ink bg-paper text-ink' },
-  { card: 'bg-violet text-paper', tag: 'border-ink bg-paper text-ink' },
+  { card: 'bg-acid text-ink', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
+  { card: 'bg-paper text-ink', tag: 'border-ink bg-acid text-ink', shadow: 'shadow-brutal' },
+  { card: 'bg-shock text-paper', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
+  { card: 'bg-cyber text-ink', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
+  { card: 'bg-violet text-paper', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
 ] as const;
 
 function FeaturedCard({ project, index = 0 }: { project: FeaturedProject; index?: number }) {
-  const tone = EXHIBIT_TONES[index % EXHIBIT_TONES.length];
+  const tone = EXHIBIT_TONES[index % EXHIBIT_TONES.length]!;
   const tilt = index % 2 === 0 ? 'md:-rotate-1' : 'md:rotate-1';
 
   return (
     <article
-      className={`group relative flex h-full flex-col border-3 border-ink p-6 shadow-brutal transition-all duration-base ease-standard
-                  hover:rotate-0 hover:-translate-y-1 hover:shadow-brutal-lg md:p-8 ${tone.card} ${tilt}`}
+      className={`group relative flex h-full flex-col border-3 border-ink p-6 transition-all duration-base ease-standard
+                  hover:rotate-0 hover:-translate-y-1 hover:shadow-brutal-lg md:p-8 ${tone.card} ${tone.shadow} ${tilt}`}
     >
       {/* Exhibit number */}
       <span className="font-mono text-xs font-bold uppercase tracking-widest opacity-70">
@@ -112,7 +112,7 @@ function GitHubCard({ project }: { project: GitHubRepo }) {
       <div className="flex items-start justify-between gap-2">
         <h4 className="text-base font-bold text-term">
           <span className="text-paper-muted">~/</span>
-          {project.name}
+        ​{project.name}
         </h4>
         <ArrowUpRight
           size={16}
