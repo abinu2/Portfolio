@@ -5,53 +5,29 @@ import Sticker from '@/components/ui/Sticker';
 import SkillBadge from '@/components/ui/SkillBadge';
 import { skillGroups } from '@/data/skills';
 
-interface EvidencePhoto {
-  src: string;
-  alt: string;
-  caption: string;
-  rotate: number;
-  small?: boolean;
-}
-
-const EVIDENCE_PHOTOS: EvidencePhoto[] = [
-  {
-    src: '/photos/grad-2026.webp',
-    alt: 'Allan in cap and gown in front of the giant 2026 sign at ASU',
-    caption: 'class of 2026',
-    rotate: -2,
-  },
-  {
-    src: '/photos/asu-stole.webp',
-    alt: 'ASU graduation stole with honor cords',
-    caption: 'cybersecurity concentration',
-    rotate: 2,
-  },
-  {
-    src: '/photos/team-presentation.webp',
-    alt: 'Allan presenting a project with his team at a final selection event',
-    caption: 'shipping under pressure',
-    rotate: -1,
-    small: true,
-  },
-];
-
 export default function About() {
   return (
     <section id="about" className="border-b-3 border-ink bg-paper px-4 py-24 md:px-8 md:py-32">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading number="04" title="About" subtitle="whoami.md" />
+        <SectionHeading number="01" title="About" subtitle="whoami.md" />
 
         <div className="grid gap-16 md:grid-cols-[1.1fr_1fr]">
           <div className="space-y-5 text-lg text-ink">
-            <div className="float-left mr-6 mb-2 w-32 -rotate-2 border-3 border-ink shadow-brutal-sm md:w-40">
-              <Image
-                src="/headshot.png"
-                alt="Portrait of Allan Binu"
-                width={400}
-                height={400}
-                className="block h-auto w-full object-cover"
-                priority
-              />
+            <div className="float-right ml-6 mb-2 w-32 rotate-2 border-3 border-ink bg-paper p-1.5 shadow-brutal-sm md:w-40">
+              <div className="relative aspect-[3/4] w-full overflow-hidden">
+                <Image
+                  src="/photos/grad-2026.webp"
+                  alt="Allan in cap and gown in front of the giant 2026 sign at ASU"
+                  fill
+                  sizes="(min-width: 768px) 160px, 128px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="pt-1.5">
+                <Sticker tone="paper" rotate={0} className="border-2 shadow-none">
+                  class of 2026
+                </Sticker>
+              </div>
             </div>
 
             <p>
@@ -94,36 +70,6 @@ export default function About() {
                   ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-20">
-          <p className="mb-6 font-mono text-xs font-bold uppercase tracking-widest text-ink-muted">
-            {'// '}evidence.zip
-          </p>
-          <div className="grid gap-8 sm:grid-cols-3">
-            {EVIDENCE_PHOTOS.map((photo) => (
-              <figure
-                key={photo.src}
-                className={`group self-start border-3 border-ink bg-paper p-2 shadow-brutal-sm transition-transform duration-base ease-standard hover:rotate-0 hover:shadow-brutal ${photo.small ? 'w-2/3 sm:w-1/2' : ''}`}
-                style={{ transform: `rotate(${photo.rotate}deg)` }}
-              >
-                <div className={`relative w-full overflow-hidden ${photo.small ? 'aspect-[3/2]' : 'aspect-[3/4]'}`}>
-                  <Image
-                    src={photo.src}
-                    alt={photo.alt}
-                    fill
-                    sizes={photo.small ? '(min-width: 640px) 16vw, 33vw' : '(min-width: 640px) 33vw, 100vw'}
-                    className="object-cover grayscale-[15%]"
-                  />
-                </div>
-                <figcaption className="pt-2">
-                  <Sticker tone="paper" rotate={0} className="border-2 shadow-none">
-                    {photo.caption}
-                  </Sticker>
-                </figcaption>
-              </figure>
             ))}
           </div>
         </div>

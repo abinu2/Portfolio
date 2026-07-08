@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
+import Image from 'next/image';
 import { CheckCircle2, Loader2, Mail, Send, XCircle } from 'lucide-react';
 import GlowButton from '@/components/ui/GlowButton';
 import SectionHeading from '@/components/ui/SectionHeading';
+import Sticker from '@/components/ui/Sticker';
 import type { ContactApiResponse } from '@/types';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
@@ -55,6 +57,25 @@ export default function Contact() {
     <section id="contact" className="border-b-3 border-ink bg-paper-dim px-4 py-24 md:px-8 md:py-32">
       <div className="mx-auto max-w-3xl">
         <SectionHeading number="05" title="Get In Touch" subtitle="sendmail.sh" />
+
+        <div className="mb-10 flex justify-end">
+          <div className="w-28 -rotate-3 border-3 border-ink bg-paper p-1.5 shadow-brutal-sm md:w-32">
+            <div className="relative aspect-[2/3] w-full overflow-hidden">
+              <Image
+                src="/photos/asu-stole.webp"
+                alt="ASU graduation stole with honor cords"
+                fill
+                sizes="(min-width: 768px) 128px, 112px"
+                className="object-cover"
+              />
+            </div>
+            <div className="pt-1.5">
+              <Sticker tone="paper" rotate={0} className="border-2 text-[10px] shadow-none">
+                cybersecurity concentration
+              </Sticker>
+            </div>
+          </div>
+        </div>
 
         {status === 'success' ? (
           <div className="flex items-start gap-4 border-3 border-ink bg-term/20 p-8 shadow-brutal">

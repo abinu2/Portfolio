@@ -14,7 +14,7 @@ export default async function LiveFeed() {
   return (
     <section id="live" className="dark-section scanlines border-b-3 border-ink bg-ink px-4 py-24 md:px-8 md:py-32">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading number="02" title="Live From GitHub" subtitle="github_api // auto-sync" inverted />
+        <SectionHeading number="03" title="Live From GitHub" subtitle="github_api // auto-sync" inverted />
 
         <p className="mb-10 flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-term">
           <RefreshCw size={14} aria-hidden="true" />

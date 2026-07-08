@@ -5,10 +5,10 @@ import { Download, Github, Linkedin, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const LINKS = [
+  { href: '#about', label: 'About' },
   { href: '#work', label: 'Work' },
   { href: '#live', label: 'Live_Feed' },
   { href: '#experience', label: 'Field_Log' },
-  { href: '#about', label: 'About' },
   { href: '#contact', label: 'Contact' },
 ];
 

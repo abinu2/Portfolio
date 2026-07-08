@@ -13,10 +13,10 @@ export default function Home() {
     <>
       <Hero />
       <Marquee items={[...marqueeSkills]} tone="acid" />
+      <About />
       <FeaturedWork />
       <LiveFeed />
       <FieldLog />
-      <About />
       <Contact />
       <Footer />
     </>

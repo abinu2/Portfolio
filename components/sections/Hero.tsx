@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { ArrowDown, Download, MapPin } from 'lucide-react';
 import GlowButton from '@/components/ui/GlowButton';
 import Sticker from '@/components/ui/Sticker';
@@ -19,10 +20,22 @@ export default function Hero() {
     <section id="top" className="graph-paper relative overflow-hidden border-b-3 border-ink">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 py-24 md:grid-cols-2 md:items-center md:px-8 md:py-32">
         <div>
-          <Sticker tone="shock" rotate={-3} className="mb-6 inline-flex items-center gap-1.5">
-            <MapPin size={12} aria-hidden="true" />
-            Tempe, Arizona
-          </Sticker>
+          <div className="mb-6 flex items-center gap-4">
+            <div className="w-16 shrink-0 -rotate-3 border-3 border-ink shadow-brutal-sm md:w-20">
+              <Image
+                src="/headshot.png"
+                alt="Portrait of Allan Binu"
+                width={200}
+                height={200}
+                className="block h-auto w-full object-cover"
+                priority
+              />
+            </div>
+            <Sticker tone="shock" rotate={-3} className="inline-flex items-center gap-1.5">
+              <MapPin size={12} aria-hidden="true" />
+              Tempe, Arizona
+            </Sticker>
+          </div>
 
           <h1 className="glitch-hover font-display text-[clamp(48px,10vw,104px)] uppercase leading-[0.9] text-ink">
             Allan
