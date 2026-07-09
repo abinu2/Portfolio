@@ -54,7 +54,7 @@ export default function Contact() {
   return (
     <section id="contact" className="border-b-3 border-ink bg-paper-dim px-4 py-24 md:px-8 md:py-32">
       <div className="mx-auto max-w-3xl">
-        <SectionHeading number="05" title="Get In Touch" subtitle="sendmail.sh" />
+        <SectionHeading number="04" title="Get In Touch" subtitle="sendmail.sh" />
 
         {status === 'success' ? (
           <div className="flex items-start gap-4 border-3 border-ink bg-term/20 p-8 shadow-brutal">

@@ -8,7 +8,7 @@ export default function FieldLog() {
   return (
     <section id="experience" className="border-b-3 border-ink bg-paper-dim px-4 py-24 md:px-8 md:py-32">
       <div className="mx-auto max-w-4xl">
-        <SectionHeading number="04" title="Field Log" subtitle="experience.log" />
+        <SectionHeading number="03" title="Field Log" subtitle="experience.log" />
 
         <div className="mb-14 flex justify-end">
           <div className="w-40 rotate-2 border-3 border-ink bg-paper p-1.5 shadow-brutal-sm md:w-48">

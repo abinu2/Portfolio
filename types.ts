@@ -14,43 +14,6 @@ export interface FeaturedProject {
   screenshot?: string;
 }
 
-export interface GitHubRepo {
-  name: string;
-  description: string | null;
-  html_url: string;
-  homepage: string | null;
-  language: string | null;
-  stargazers_count: number;
-  topics: string[];
-  fork: boolean;
-  archived: boolean;
-  pushed_at: string;
-}
-
-/** Hand-written entry for a smaller/secondary project, enriched with live GitHub stats by repo name. */
-export interface OtherBuild {
-  /** Exact GitHub repo name under the profile, used to match live stats. */
-  repo: string;
-  title: string;
-  description: string;
-  tags: string[];
-}
-
-/** OtherBuild merged with live data fetched from the GitHub API, if the repo was found. */
-export interface ResolvedOtherBuild extends OtherBuild {
-  htmlUrl: string;
-  stars: number | null;
-}
-
-/** Aggregate stats computed from the GitHub API for the live stats panel. */
-export interface GithubStats {
-  publicRepos: number;
-  totalStars: number;
-  topLanguages: { name: string; count: number }[];
-  pushesLast90Days: number;
-  lastPushedAt: string | null;
-}
-
 export interface ExperienceItem {
   role: string;
   company: string;

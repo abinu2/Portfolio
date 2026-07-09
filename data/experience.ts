@@ -13,16 +13,6 @@ export const experience: ExperienceItem[] = [
     tags: ['Solidity', 'Node.js', 'Python', 'React', 'PostgreSQL'],
   },
   {
-    role: 'Principal, Sunday School Program',
-    company: 'St. Thomas Orthodox Church',
-    period: '2025 — Present',
-    description: [
-      'Direct curriculum development and instructional standardization across K-12 grade levels for a program serving 50+ students.',
-      'Oversee 12+ volunteer instructors — scheduling, parent communication, and event planning.',
-    ],
-    tags: ['Leadership', 'Curriculum Design', 'Operations'],
-  },
-  {
     role: 'VP of Leadership',
     company: 'ASU Hacker Devils',
     period: 'Aug 2024 — Present',
@@ -51,6 +41,16 @@ export const experience: ExperienceItem[] = [
       'Trained ML models (scikit-learn) for anomaly detection and pattern recognition; delivered findings to cross-functional stakeholders.',
     ],
     tags: ['Python', 'ETL', 'Scikit-learn', 'Data Analysis'],
+  },
+  {
+    role: 'Principal, Sunday School Program',
+    company: 'St. Thomas Orthodox Church',
+    period: '2025 — Present',
+    description: [
+      'Direct curriculum development and instructional standardization across K-12 grade levels for a program serving 50+ students.',
+      'Oversee 12+ volunteer instructors — scheduling, parent communication, and event planning.',
+    ],
+    tags: ['Leadership', 'Curriculum Design', 'Operations'],
   },
   {
     role: 'B.S. Computer Science — Cybersecurity Concentration',

@@ -1,6 +1,6 @@
 # Allan Binu — Portfolio
 
-Personal portfolio built with Next.js 14 (App Router), TypeScript, and Tailwind CSS. Neo-brutalist zine design system with a typewriter terminal hero, a live GitHub project grid, an animated experience timeline, and a rate-limited contact form.
+Personal portfolio built with Next.js 14 (App Router), TypeScript, and Tailwind CSS. Neo-brutalist zine design system with a typewriter terminal hero, a curated project grid, an animated experience timeline, and a rate-limited contact form.
 
 ## Quick start
 
@@ -28,7 +28,6 @@ Copy `.env.example` to `.env.local` and fill in what you need. Everything is opt
 
 | Variable | Purpose |
 |---|---|
-| `GITHUB_TOKEN` | Raises the GitHub API rate limit from 60 to 5000 req/hr for the Live Feed section. Create at github.com/settings/tokens (no scopes needed). |
 | `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` | SMTP credentials for contact form delivery via Nodemailer. When unset, submissions are logged to the server console. |
 | `CONTACT_EMAIL` | Destination address for contact form submissions. |
 
@@ -40,19 +39,17 @@ Portfolio content lives in `data/`:
 - `data/experience.ts` — the Field Log timeline (role, company, period, bullet points, tags)
 - `data/skills.ts` — skill groups (the marquee ticker derives from these automatically)
 
-The **Live From GitHub** section is fully dynamic — `lib/github.ts` pulls non-fork, non-coursework repos straight from `github.com/abinu2` via the REST API, cached for 1 hour via Next's data cache. No manual edits needed when a new repo is pushed.
-
 ## Design system
 
 Every color, font size, spacing unit, radius, and animation duration is defined once in `styles/tokens.ts`. `tailwind.config.ts` generates the utility classes from those tokens, so re-theming the entire site is a one-file change. No raw hex codes appear in any component.
 
 ## Architecture notes
 
-- **Live data**: `lib/github.ts` fetches and filters repos server-side with ISR (`revalidate: 3600`); `app/api/contact/route.ts` validates, rate-limits (3/IP/hour in-memory — swap for Redis/Upstash at serverless scale), and delivers form submissions.
+- **Contact form**: `app/api/contact/route.ts` validates, rate-limits (3/IP/hour in-memory — swap for Redis/Upstash at serverless scale), and delivers form submissions.
 - **Metadata**: `app/icon.tsx` and `app/opengraph-image.tsx` generate the favicon and social card on the fly via `next/og` — no static image assets to keep in sync.
 - **Accessibility**: visible focus rings, `aria-label` on icon buttons, labeled form fields, a skip-to-content link, and full `prefers-reduced-motion` support.
 - **Animations** use `transform`/`opacity` only — no layout-triggering properties.
 
 ## Deploying
 
-Push to GitHub and import into [Vercel](https://vercel.com/new) — zero config required. Add the env vars above in the Vercel dashboard if you want a higher GitHub API rate limit or a working contact form.
+Push to GitHub and import into [Vercel](https://vercel.com/new) — zero config required. Add the env vars above in the Vercel dashboard if you want a working contact form.
