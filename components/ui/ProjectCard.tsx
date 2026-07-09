@@ -8,7 +8,7 @@ import type { FeaturedProject } from '@/types';
 
 const EXHIBIT_TONES = [
   { text: 'text-ink', overlay: 'bg-acid/90', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
-  { text: 'text-ink', overlay: 'bg-paper/90', tag: 'border-ink bg-acid text-ink', shadow: 'shadow-brutal' },
+  { text: 'text-ink', overlay: 'bg-term/90', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
   { text: 'text-paper', overlay: 'bg-shock/90', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
   { text: 'text-ink', overlay: 'bg-cyber/90', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
   { text: 'text-paper', overlay: 'bg-violet/90', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
