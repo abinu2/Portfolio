@@ -58,7 +58,7 @@ export const featuredProjects: FeaturedProject[] = [
     slug: 'launchpad',
     title: 'LaunchPad',
     description:
-      'AI-powered small business ops suite: five tools built on Vertex AI and Gemini, from marketing copy to financial forecasting.',
+      'Five AI ops tools for small businesses: Quote-to-Cash, Receipt Scanner, Contract Vault, Compliance Autopilot, and Growth Radar, sharing one Firestore data graph on Vertex AI and Gemini.',
     tags: ['Next.js', 'Vertex AI', 'Gemini', 'Firestore'],
     github: 'https://github.com/abinu2/LaunchPad',
     demo: 'https://launch-pad-flame.vercel.app',
