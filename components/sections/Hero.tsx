@@ -12,7 +12,7 @@ const TERMINAL_LINES = [
   'solidity, python, typescript, react, next.js, hardhat, linux',
   '',
   '$ status --check',
-  'open to new-grad SWE + security roles, spring 2026',
+  'open to new-grad SWE + security roles',
 ];
 
 export default function Hero() {
@@ -38,10 +38,10 @@ export default function Hero() {
           </h1>
 
           <p className="mt-6 max-w-md text-lg text-ink-muted">
-            I&apos;m a CS student at Arizona State University building blockchain security
-            infrastructure at <span className="font-bold text-ink">Kimuntu Power</span>. I focus on
-            systems that have to earn trust: contracts that can&apos;t revert, networks that
-            can&apos;t leak, and data that can&apos;t go missing.
+            I&apos;m a Computer Science graduate of Arizona State University building blockchain
+            security infrastructure at <span className="font-bold text-ink">Kimuntu Power</span>.
+            I focus on systems that have to earn trust: contracts that can&apos;t revert, networks
+            that can&apos;t leak, and data that can&apos;t go missing.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
@@ -59,29 +59,31 @@ export default function Hero() {
           </div>
         </div>
 
-        <TerminalText lines={TERMINAL_LINES} />
-      </div>
+        <div>
+          <TerminalText lines={TERMINAL_LINES} />
 
-      {/* Grad stole — pasted in the bottom-right corner, zine-collage style */}
-      <div className="pointer-events-none absolute bottom-6 right-4 z-10 hidden w-28 rotate-3 border-3 border-ink bg-paper p-1.5 shadow-brutal md:block md:w-32 md:right-8">
-        <div className="relative aspect-[2/3] w-full overflow-hidden">
-          <Image
-            src="/photos/asu-stole.webp"
-            alt="ASU graduation stole with honor cords"
-            fill
-            sizes="128px"
-            className="object-cover"
-          />
-        </div>
-        <div className="pt-1.5">
-          <Sticker
-            tone="cyber"
-            rotate={0}
-            className="inline-flex items-center gap-1 border-2 text-[10px] shadow-none"
-          >
-            <MapPin size={10} aria-hidden="true" />
-            Tempe, Arizona
-          </Sticker>
+          {/* Grad stole — pasted right underneath the terminal, zine-collage style */}
+          <div className="ml-auto mt-6 w-28 rotate-3 border-3 border-ink bg-paper p-1.5 shadow-brutal md:w-32">
+            <div className="relative aspect-[2/3] w-full overflow-hidden">
+              <Image
+                src="/photos/asu-stole.webp"
+                alt="ASU graduation stole with honor cords"
+                fill
+                sizes="128px"
+                className="object-cover"
+              />
+            </div>
+            <div className="pt-1.5">
+              <Sticker
+                tone="cyber"
+                rotate={0}
+                className="inline-flex items-center gap-1 border-2 text-[10px] shadow-none"
+              >
+                <MapPin size={10} aria-hidden="true" />
+                Tempe, Arizona
+              </Sticker>
+            </div>
+          </div>
         </div>
       </div>
     </section>

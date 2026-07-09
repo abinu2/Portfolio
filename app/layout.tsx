@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://portfolio-abinu2s-projects.vercel.app'),
   title: 'ALLAN BINU — Software Engineer / Security Researcher',
   description:
-    'Blockchain developer, cybersecurity researcher, and full-stack engineer. CS student at Arizona State University. No templates were harmed.',
+    'Blockchain developer, cybersecurity researcher, and full-stack engineer. CS graduate of Arizona State University. No templates were harmed.',
   openGraph: {
     title: 'ALLAN BINU',
     description: 'Blockchain · Cybersecurity · AI — a neo-brutalist portfolio',

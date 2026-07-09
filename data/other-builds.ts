@@ -14,13 +14,6 @@ export const otherBuilds: OtherBuild[] = [
     tags: ['Next.js', 'TypeScript', 'Tailwind'],
   },
   {
-    repo: 'BTAV-Smart-Home-Website',
-    title: 'BTAV Smart Home',
-    description:
-      'Marketing and lead-gen site for a Control4 authorized smart-home dealer, built and shipped for a small business client.',
-    tags: ['Web', 'Client Work'],
-  },
-  {
     repo: 'Orthodox-Sunday-School',
     title: 'Sunday School Curriculum Tool',
     description:

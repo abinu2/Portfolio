@@ -35,7 +35,7 @@ export const experience: ExperienceItem[] = [
   {
     role: 'Undergraduate Tutor — Data Structures & Algorithms',
     company: 'Arizona State University',
-    period: 'Aug 2024 — Present',
+    period: 'Aug 2024 — May 2026',
     description: [
       'Mentor 30+ students per semester in algorithm design, recursion, graph modeling, and complexity analysis.',
       'Build frameworks and worked examples that improve comprehension of core CS problem-solving patterns.',
@@ -55,7 +55,7 @@ export const experience: ExperienceItem[] = [
   {
     role: 'B.S. Computer Science — Cybersecurity Concentration',
     company: 'Arizona State University',
-    period: 'Graduating May 2026',
+    period: 'Graduated May 2026',
     description: [
       'Coursework spanning distributed systems, operating systems, computer networks, machine learning, and database management alongside hands-on CTF competition.',
       'Incoming: M.S. in Robotics & Autonomous Systems.',

@@ -31,10 +31,10 @@ export default function About() {
             </div>
 
             <p>
-              Hey, I&apos;m Allan. I&apos;m a Computer Science student at Arizona State University,
-              concentrating in Cybersecurity and graduating in May 2026, with an M.S. in Robotics
-              and Autonomous Systems up next. I&apos;m happiest building things that have to hold
-              up under real pressure, not just look good in a demo.
+              Hey, I&apos;m Allan. I graduated from Arizona State University with a degree in
+              Computer Science, concentrating in Cybersecurity, and I&apos;m headed into an M.S.
+              in Robotics and Autonomous Systems next. I&apos;m happiest building things that have
+              to hold up under real pressure, not just look good in a demo.
             </p>
             <p>
               Right now I build production blockchain security infrastructure at{' '}

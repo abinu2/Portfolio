@@ -7,11 +7,11 @@ import type { FeaturedProject } from '@/types';
 /* ------------------------------------------------------------------ */
 
 const EXHIBIT_TONES = [
-  { text: 'text-ink', overlay: 'bg-acid/75', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
-  { text: 'text-ink', overlay: 'bg-paper/75', tag: 'border-ink bg-acid text-ink', shadow: 'shadow-brutal' },
-  { text: 'text-paper', overlay: 'bg-shock/75', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
-  { text: 'text-ink', overlay: 'bg-cyber/75', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
-  { text: 'text-paper', overlay: 'bg-violet/75', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
+  { text: 'text-ink', overlay: 'bg-acid/90', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
+  { text: 'text-ink', overlay: 'bg-paper/90', tag: 'border-ink bg-acid text-ink', shadow: 'shadow-brutal' },
+  { text: 'text-paper', overlay: 'bg-shock/90', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
+  { text: 'text-ink', overlay: 'bg-cyber/90', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
+  { text: 'text-paper', overlay: 'bg-violet/90', tag: 'border-ink bg-paper text-ink', shadow: 'shadow-brutal' },
 ] as const;
 
 /**
@@ -44,7 +44,7 @@ export default function ProjectCard({
             alt=""
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-            className="object-contain object-top"
+            className="object-cover object-top"
           />
         </div>
       ) : project.demo ? (
@@ -55,7 +55,7 @@ export default function ProjectCard({
             loading="lazy"
             tabIndex={-1}
             sandbox="allow-scripts allow-same-origin"
-            className="absolute left-0 top-0 h-[400%] w-[400%] origin-top-left scale-[0.25] border-0"
+            className="absolute left-0 top-0 h-[300%] w-[300%] origin-top-left scale-[0.3334] border-0"
           />
         </div>
       ) : null}

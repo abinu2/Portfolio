@@ -64,4 +64,15 @@ export const featuredProjects: FeaturedProject[] = [
     demo: 'https://launch-pad-flame.vercel.app',
     prize: 'Google Cloud Track + Financial Literacy Track Winner',
   },
+  {
+    slug: 'btav',
+    title: 'BTAV Smart Home',
+    description:
+      'Marketing and lead-gen site for a Control4 authorized smart-home dealer, built and shipped end-to-end for a small business client.',
+    tags: ['Next.js', 'TypeScript', 'Supabase'],
+    github: 'https://github.com/abinu2/BTAV-Smart-Home-Website',
+    demo: 'https://btav.tech',
+    // Live site blocks framing (X-Frame-Options: DENY) — use a screenshot.
+    screenshot: '/previews/btav.png',
+  },
 ];
