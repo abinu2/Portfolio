@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 const LINKS = [
   { href: '#about', label: 'About' },
   { href: '#work', label: 'Work' },
-  { href: '#live', label: 'Live_Feed' },
+  { href: '#live', label: 'Live_Stats' },
   { href: '#experience', label: 'Field_Log' },
   { href: '#contact', label: 'Contact' },
 ];

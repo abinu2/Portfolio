@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 
 interface StickerProps {
   children: React.ReactNode;
-  tone?: 'acid' | 'shock' | 'violet' | 'ink' | 'paper' | 'term';
+  tone?: 'acid' | 'shock' | 'violet' | 'cyber' | 'ink' | 'paper' | 'term';
   /** Rotation in degrees, e.g. -3 or 6. */
   rotate?: number;
   className?: string;
@@ -12,6 +12,7 @@ const tones = {
   acid: 'bg-acid text-ink',
   shock: 'bg-shock text-paper',
   violet: 'bg-violet text-paper',
+  cyber: 'bg-cyber text-ink',
   ink: 'bg-ink text-acid',
   paper: 'bg-paper text-ink',
   term: 'bg-term text-ink',

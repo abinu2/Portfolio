@@ -10,7 +10,7 @@ export default function FeaturedWork() {
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {featuredProjects.map((project, index) => (
-            <ProjectCard key={project.slug} variant="featured" project={project} index={index} />
+            <ProjectCard key={project.slug} project={project} index={index} />
           ))}
         </div>
       </div>
