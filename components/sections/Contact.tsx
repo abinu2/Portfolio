@@ -57,7 +57,7 @@ export default function Contact() {
         <SectionHeading number="04" title="Get In Touch" subtitle="sendmail.sh" />
 
         {status === 'success' ? (
-          <div className="flex items-start gap-4 border-3 border-ink bg-term/20 p-8 shadow-brutal">
+          <div role="status" className="flex items-start gap-4 border-3 border-ink bg-term/20 p-8 shadow-brutal">
             <CheckCircle2 size={28} className="shrink-0 text-ink" aria-hidden="true" />
             <div>
               <p className="font-display text-xl uppercase text-ink">Message sent</p>
@@ -104,7 +104,10 @@ export default function Contact() {
             </div>
 
             {status === 'error' && error && (
-              <div className="flex items-center gap-2 border-3 border-danger bg-danger/10 px-4 py-3 font-mono text-sm text-ink">
+              <div
+                role="alert"
+                className="flex items-center gap-2 border-3 border-danger bg-danger/10 px-4 py-3 font-mono text-sm text-ink"
+              >
                 <XCircle size={16} className="shrink-0 text-danger" aria-hidden="true" />
                 {error}
               </div>

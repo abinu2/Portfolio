@@ -32,11 +32,13 @@ export default function TerminalText({ lines, typingSpeed = 35, className }: Ter
     !prefersReducedMotion,
   );
 
+  const label = `Terminal showing: ${lines.filter(Boolean).join('; ')}`;
+
   return (
     <div
       className={cn('border-3 border-ink bg-ink shadow-brutal-acid', className)}
       role="img"
-      aria-label="Terminal showing: whoami allan_binu; skills solidity, python, javascript, hardhat, react, next.js, linux, networking, ml; status open to opportunities"
+      aria-label={label}
     >
       {/* Title bar */}
       <div className="flex items-center justify-between border-b-3 border-ink bg-acid px-4 py-2">
